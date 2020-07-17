@@ -31,10 +31,10 @@ public class AccountAward {
     @JoinColumn(name = "award_id")
     private Award award;
 
-    @JsonIgnore
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "account_id")
-    private Account account;
+    @Column(name ="activity_id")
+    private Long activityId;
+    @Column(name = "account_id")
+    private Long accountId;
 
 
 

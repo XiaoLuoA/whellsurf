@@ -7,13 +7,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
- * @author 王英豪111
+ * @author jayzh
  */
 @Service
 public class AccountAwardServiceImpl implements AccountAwardService {
-
     @Autowired
-    private AccountAwardRep accountAwardRep;
+    AccountAwardRep accountAwardRep;
+    /**
+     * @author jayzh
+     */
+    @Override
+    public AccountAward redeem(Long activityId, Long AccountId) {
+        AccountAward accountAward=accountAwardRep.findByActivityIdAndAccountId(activityId,AccountId);
+        accountAward.setStatus(2);
+        return accountAwardRep.save(accountAward);
+    }
 
     @Override
     public AccountAward checkAccountAward(String awardCode, Long activity) {
