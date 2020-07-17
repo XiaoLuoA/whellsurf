@@ -1,6 +1,8 @@
 package com.since.whellsurf.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.ToString;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +10,7 @@ import java.util.List;
 @Entity
     @Data
     @Table(name = "account")
+@ToString
     public class Account {
 
         @Id
@@ -26,9 +29,5 @@ import java.util.List;
         private String gender;
 
         private Integer status;
-        @OneToMany(mappedBy = "account")
-
-        List<AccountAward> accountAwards=new ArrayList<>();
-
 
 }

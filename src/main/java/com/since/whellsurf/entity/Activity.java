@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,22 +28,13 @@ public class Activity {
 
     private String image;
 
-    @JsonIgnore
-    @OneToOne
-    @JoinColumn(name="shop_id",referencedColumnName="id")
-    private Shop shop;
-    @OneToMany(mappedBy = "activity")
-    private List<AccountAward> accountAwards=new ArrayList<>();
+    @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name = "activity_id")
+    private List<AccountAward> accountAwards;
 
-    @Override
-    public String toString() {
-        return "Activity{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", details='" + details + '\'' +
-                ", status=" + status +
-                ", text='" + text + '\'' +
-                ", image='" + image + '\'' +
-                '}';
-    }
+    @OneToMany(fetch=FetchType.LAZY)
+    @JoinColumn(name = "activity_id")
+    private List<Award> awards;
+
+
 }
