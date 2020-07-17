@@ -31,5 +31,5 @@ public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
      * @return 中奖信息集合
      */
     @Override
-    List<AccountAward> save(AccountAward accountAward);
+    AccountAward save(AccountAward accountAward);
 }

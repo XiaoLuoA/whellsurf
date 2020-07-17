@@ -10,7 +10,10 @@ import java.nio.charset.StandardCharsets;
  */
 @SuppressWarnings("AlibabaClassNamingShouldBeCamel")
 public class WXUtil {
-
+    public class Scope{
+        public static final String USER_INFO = "snsapi_userinfo";
+        public static final String BASE = "snsapi_base";
+    }
     /**
      * {"subscribe":null,
      * "openId":"oIaLN563Ujp5EPzh2agMoIOHiFpY",
@@ -28,22 +31,50 @@ public class WXUtil {
      * @param args
      */
     public static void main(String[] args) {
-        genURL("wx55cd46481d4e28d6","http://wxtest.easy.echosite.cn/wx/redirect/wx55cd46481d4e28d6/greet");
+        String appId = "wx55cd46481d4e28d6";
+        String uri = "http://wxtest.easy.echosite.cn/wx/redirect/wx55cd46481d4e28d6/greet";
+        genGetUserURL(appId,uri);
+        genGetBaseURL(appId,uri);
+        genURL(appId,uri,Scope.USER_INFO);
+        genURL(appId,uri,Scope.BASE);
     }
 
     /**
-     * 生成微信登陆用的url
-     * @param appId 公众号的appid3
+     * 生成微信授权用的url
+     * @author luoxinyuan
+     * @param appId 公众号的appId
      * @param uri 登陆后跳转的url
-     * @return 能用于微信登陆的url
+     * @param scope 微信授权方式
+     * @return 用于微信用户授权的的url
      */
-    @SuppressWarnings("AlibabaLowerCamelCaseVariableNaming")
-    public static String genURL(String appId, String uri){
-        String appidStr = "appid="+appId;
+    public static String genURL(String appId, String uri,String scope){
         String redirectUri = "redirect_uri="+URLEncoder.encode(uri, StandardCharsets.UTF_8);
-        String ret =  "https://open.weixin.qq.com/connect/oauth2/authorize?"+appidStr+"&"+redirectUri
-                +"&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
-        System.out.println(ret);
+        String ret =  "https://open.weixin.qq.com/connect/oauth2/authorize?appid="+appId+"&"+redirectUri
+                +"&response_type=code&scope="+scope+"&state=STATE#wechat_redirect";
+        System.out.println("gen URL\n"+ret);
         return ret;
+    }
+
+    /**
+     * 生成微信静默授权用的url
+     * @author luoxinyuan
+     * @param appId 公众号的appId
+     * @param uri 登陆后跳转的url
+     * @return 用于微信用户静默授权的的url
+     */
+    public static String genGetBaseURL(String appId, String uri){
+        return genURL(appId,uri,Scope.BASE);
+    }
+
+
+    /**
+     * 生成微信授权获取用户信息用的url
+     * @author luoxinyuan
+     * @param appId 众号的appId
+     * @param uri 登陆后跳转的url
+     * @return 用于微信用户主动授权的的url
+     */
+    public static String genGetUserURL(String appId, String uri){
+        return genURL(appId,uri,Scope.USER_INFO);
     }
 }
