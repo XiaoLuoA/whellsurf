@@ -20,5 +20,7 @@ public class AccountController {
     public void findAccount(){
         long l=1;
         Account testUser= accountService.findById(l);
+        System.out.println(testUser.getAddress());
+        System.out.println();
     }
 }
