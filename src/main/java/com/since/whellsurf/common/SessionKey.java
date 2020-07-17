@@ -5,4 +5,5 @@ package com.since.whellsurf.common;
  */
 public interface SessionKey {
     String LOGIN_USER = "login_user";
+    String LOGIN_SHOP = "login_shop";
 }
