@@ -1,8 +1,9 @@
 package com.since.whellsurf.controller;
 
 import com.since.whellsurf.entity.Account;
+import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Users;
-import com.since.whellsurf.service.TestServiceImpl;
+import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,9 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author luoxinyuan
@@ -25,7 +24,7 @@ import java.util.stream.Stream;
 public class TestController {
 
     @Autowired
-    private TestServiceImpl testService;
+    private ActivityRep activityRep;
 
     @ResponseBody
     @PostMapping("/multi")
@@ -36,24 +35,14 @@ public class TestController {
             users1.setName(RandomUtil.genRandomCode(4));
             return users1;
         }).collect(Collectors.toList());
+        return account;
+    }
 
-
-        long start1 = System.currentTimeMillis();
-        testService.saveAll(usersList);
-        long start2 = System.currentTimeMillis();
-        System.out.println("simple insert "+ (start2-start1));
-
-
-        usersList = Arrays.stream(users).map(users1 -> {
-            users1 = new Users();
-            users1.setName(RandomUtil.genRandomCode(4));
-            return users1;
-        }).collect(Collectors.toList());
-
-        long start3 = System.currentTimeMillis();
-        testService.saveAllTrans(usersList);
-        long start4 = System.currentTimeMillis();
-        System.out.println("trans insert "+ (start4-start3));
+    @ResponseBody
+    @PostMapping("/act")
+    public Account act(@RequestBody Account account){
+        Activity r = activityRep.findByShopIdAndStatus(1L,1);
+        System.out.println(r);
         return account;
     }
 

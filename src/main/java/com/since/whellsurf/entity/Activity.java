@@ -28,6 +28,9 @@ public class Activity {
 
     private String image;
 
+    @Column(name = "shop_id")
+    private Long shopId;
+
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name = "activity_id")
     private List<AccountAward> accountAwards;
