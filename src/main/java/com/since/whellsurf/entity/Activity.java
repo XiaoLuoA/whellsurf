@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author drj
@@ -31,7 +33,8 @@ public class Activity {
     @OneToOne
     @JoinColumn(name="shop_id",referencedColumnName="id")
     private Shop shop;
-
+    @OneToMany(mappedBy = "activity")
+    private List<AccountAward> accountAwards=new ArrayList<>();
 
     @Override
     public String toString() {
