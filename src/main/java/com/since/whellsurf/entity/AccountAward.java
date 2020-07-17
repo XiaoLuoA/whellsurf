@@ -3,6 +3,7 @@ package com.since.whellsurf.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -26,35 +27,15 @@ public class AccountAward {
 
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "award_id")
     private Award award;
 
-
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "activity_id")
-    private Activity activity;
-
-    @JsonIgnore
-    @ManyToOne
+    @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "account_id")
     private Account account;
 
-    @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "shop_id")
-    private Shop shop;
 
-    @Override
-    public String toString() {
-        return "AccountAward{" +
-                "id=" + id +
-                ", openId='" + openId + '\'' +
-                ", headImgUrl='" + headImgUrl + '\'' +
-                ", awardName='" + awardName + '\'' +
-                ", status=" + status +
-                ", awardCode='" + awardCode + '\'' +
-                '}';
-    }
+
 }
