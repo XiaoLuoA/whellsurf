@@ -2,8 +2,10 @@ package com.since.whellsurf.service.impl;
 
 
 import com.since.whellsurf.common.SessionKey;
+import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.rep.ActivityRep;
+import com.since.whellsurf.rep.ShopRep;
 import com.since.whellsurf.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,8 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Service
 public class ActivityServiceImpl implements ActivityService {
+    @Autowired
+    ShopRep shopRep;
     @Autowired
     ActivityRep activityRep;
     @Autowired
@@ -46,6 +50,8 @@ public class ActivityServiceImpl implements ActivityService {
         }
 
     }
+
+
 
 
 }

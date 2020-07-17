@@ -2,6 +2,7 @@ package com.since.whellsurf.controller;
 
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
+import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.ret.Ret;
 import com.since.whellsurf.service.ShopService;
@@ -63,7 +64,7 @@ public class ShopController {
     @RequestMapping("/findaccounts")
     @ResponseBody
     public Ret finish(){
-        httpServletRequest.getSession().getAttribute("User");
+        Shop shop=(Shop)httpServletRequest.getSession().getAttribute("shoper");
 
 
         return null;

@@ -10,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author jayzh
+ */
 @Service
 public class ShopServiceImpl implements ShopService {
     @Autowired
@@ -37,4 +40,9 @@ public class ShopServiceImpl implements ShopService {
     public int getAmountJoinActivity(Long activityId) {
         return getActivityAwardsById(activityId).size();
     }
+
+
+
+
+
 }
