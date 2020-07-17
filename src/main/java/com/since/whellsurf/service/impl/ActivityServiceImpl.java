@@ -51,7 +51,6 @@ public class ActivityServiceImpl implements ActivityService {
         return true;
     }
 
-
     /**
      * @author jayzh
      */

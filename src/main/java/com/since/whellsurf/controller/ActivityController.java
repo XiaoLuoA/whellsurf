@@ -4,12 +4,8 @@ import com.since.whellsurf.common.SessionKey;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Award;
 import com.since.whellsurf.entity.Shop;
-import com.since.whellsurf.ret.AccountResult;
-import com.since.whellsurf.ret.ActivityResult;
-import com.since.whellsurf.ret.Ret;
-import com.since.whellsurf.service.AccountService;
+import com.since.whellsurf.ret.*;
 import com.since.whellsurf.service.ActivityService;
-import org.aspectj.apache.bcel.generic.RET;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +27,11 @@ public class ActivityController {
     public Ret createActivitty(Activity activity) {
         Shop shop  = (Shop) httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_SHOP);
         if(shop==null){
-            return Ret.error("没有此商户");
+            return Ret.error(ShopResult.SHOPER_IS_NOT_EXIST);
             }
         else{
             //判断当前商户是否有activity
-               Activity isActivity = activityService.find();//调用大师isActivity方法
+               Activity isActivity = activityService.findExitActivity(activity.getShopId(),1);//调用大师isActivity方法
                if (isActivity==null) {
                    //判断参数合法性
                    List<Award> awardList = activity.getAwards();
@@ -48,18 +44,18 @@ public class ActivityController {
                            // 插入两个表
                            activityService.insertActivityAndAwardList(activity);
                            //to do 生成二维码及活动方案
-                           return Ret.success("活动创建成功");
+                           String url="Http://8080";
+                           Ret ret = new Ret(ActivityResult.SUCCESS,url);
+                           return ret;
                        }
                        else {
-                           return Ret.error("插入失败");
-
+                           return Ret.error(AwardResult.AWARD_PROBABILITY_WRONG);
                        }
 
-                   return Ret.error("奖品概率设置有问题");
 
                }
                else{
-                       return Ret.error("已经有活动了"); // 跳转结果页
+                       return Ret.error(ActivityResult.ACTIVITY_IS_RUNNING); // 跳转结果页
                    }
 
             }
