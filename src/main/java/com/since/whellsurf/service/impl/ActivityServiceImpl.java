@@ -1,14 +1,14 @@
 package com.since.whellsurf.service.impl;
 
 
-import com.since.whellsurf.common.SessionKey;
-import com.since.whellsurf.entity.Shop;
+import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.transaction.Transactional;
+
 
 /**
  * @author  drj
@@ -17,8 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ActivityServiceImpl implements ActivityService {
     @Autowired
     ActivityRep activityRep;
-    @Autowired
-    HttpServletRequest httpServletRequest;
 
 
     /**
@@ -33,19 +31,15 @@ public class ActivityServiceImpl implements ActivityService {
 
     /**
      * @author drj
-     * 判断商户的一个活动是否正在执行
+     * 对处理之后的activity和awardList进行插入
+     * @param activity
+     * @return true
      */
+    @Transactional
     @Override
-    public Boolean shopIsActivitty() {
-        Object ob = httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_USER);
-        Shop s = new Shop();
-        if (ob.getClass().isInstance(s.getClass())) {
-            return null;
-        } else {
-            return null;
-        }
-
+    public Boolean insertActivityAndAwardList(Activity activity) {
+         activityRep.save(activity);
+         System.out.println(activity.getAwards());
+        return true;
     }
-
-
 }
