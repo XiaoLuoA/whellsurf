@@ -1,5 +1,8 @@
 package com.since.whellsurf.controller;
 
+import com.since.whellsurf.common.SessionKey;
+import com.since.whellsurf.common.Status;
+import com.since.whellsurf.entity.Account;
 import lombok.AllArgsConstructor;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -30,13 +33,22 @@ public class WxRedirectController {
     private HttpServletRequest request;
 
     @RequestMapping("/greet")
-    public String greetUser(@PathVariable String appid, @RequestParam String code) {
+    public String greetUser(@PathVariable String appid, @RequestParam String code,HttpServletRequest request) {
         if (!this.wxService.switchover(appid)) {
             throw new IllegalArgumentException(String.format("未找到对应appid=[%s]的配置，请核实！", appid));
         }
         try {
             WxMpOAuth2AccessToken accessToken = wxService.oauth2getAccessToken(code);
             WxMpUser user = wxService.oauth2getUserInfo(accessToken, null);
+            Account account = new Account();
+            account.setOpenId(user.getOpenId());
+            account.setNickname(user.getNickname());
+            account.setAddress(user.getCountry() + user.getProvince() + user.getCity());
+            account.setHeadImgUrl(user.getHeadImgUrl());
+            account.setGender(user.getSexDesc());
+            account.setStatus(Status.Account_Exist);
+
+            request.getSession().setAttribute(SessionKey.LOGIN_USER,account);
             return "redirect:/to/index";
         } catch (WxErrorException e) {
             e.printStackTrace();

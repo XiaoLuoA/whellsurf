@@ -5,4 +5,6 @@ import com.since.whellsurf.entity.Shop;
 
 public interface ShopRep extends JpaRepository<Shop,Long> {
 
+
+
 }

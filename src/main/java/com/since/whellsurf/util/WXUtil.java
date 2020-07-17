@@ -33,7 +33,7 @@ public class WXUtil {
 
     /**
      * 生成微信登陆用的url
-     * @param appId 公众号的appid
+     * @param appId 公众号的appid3
      * @param uri 登陆后跳转的url
      * @return 能用于微信登陆的url
      */
