@@ -2,6 +2,7 @@ package com.since.whellsurf.service.impl;
 
 
 import com.since.whellsurf.common.SessionKey;
+import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.rep.ActivityRep;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
 /**
  * @author  drj
@@ -79,5 +81,31 @@ public class ActivityServiceImpl implements ActivityService {
         return activity;
     }
 
+
+
+
+    /**
+     * this method aim to get the list of accountAward by activity id;
+     *
+     * @param activityId
+     * @return List<AccountAward>
+     */
+    @Override
+    public List<AccountAward> getActivityAwardsById(Long activityId) {
+        Activity activity = activityRep.findActivityById(activityId);
+        List<AccountAward> accountAwards=activity.getAccountAwards();
+        return accountAwards;
+    }
+
+    /**
+     * this method aim to get the number of the people who participates in this activity by activity id;
+     *
+     * @param activityId
+     * @return number of people
+     */
+    @Override
+    public int getAmountJoinActivity(Long activityId) {
+        return getActivityAwardsById(activityId).size();
+    }
 
 }

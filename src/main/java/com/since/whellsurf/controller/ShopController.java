@@ -52,7 +52,7 @@ public class ShopController {
            return ret;
         }
         Long acId=Long.parseLong(activityId);
-        List<AccountAward> accountAwards=shopService.getActivityAwardsById(acId);
+        List<AccountAward> accountAwards=activityService.getActivityAwardsById(acId);
         ret=new Ret(SUCCESS,accountAwards);
         return ret;
     }
@@ -71,7 +71,7 @@ public class ShopController {
             return ret;
         }
         Long acId=Long.parseLong(activityId);
-        int amount=shopService.getAmountJoinActivity(acId);
+        int amount=activityService.getAmountJoinActivity(acId);
         ret=new Ret(SUCCESS,amount);
         return ret;
     }

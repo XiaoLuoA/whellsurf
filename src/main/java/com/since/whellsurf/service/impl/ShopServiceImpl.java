@@ -17,31 +17,7 @@ import java.util.List;
  */
 @Service
 public class ShopServiceImpl implements ShopService {
-    @Autowired
-    ActivityRep activityRepository;
-    /**
-     * this method aim to get the list of accountAward by activity id;
-     *
-     * @param activityId
-     * @return List<AccountAward>
-     */
-    @Override
-    public List<AccountAward> getActivityAwardsById(Long activityId) {
-        Activity activity = activityRepository.findActivityById(activityId);
-        List<AccountAward> accountAwards=activity.getAccountAwards();
-        return accountAwards;
-    }
 
-    /**
-     * this method aim to get the number of the people who participates in this activity by activity id;
-     *
-     * @param activityId
-     * @return number of people
-     */
-    @Override
-    public int getAmountJoinActivity(Long activityId) {
-        return getActivityAwardsById(activityId).size();
-    }
 
 
     @Autowired
