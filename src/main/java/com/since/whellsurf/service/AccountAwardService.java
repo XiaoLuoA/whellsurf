@@ -19,4 +19,16 @@ public interface AccountAwardService {
      */
 
     public AccountAward redeem(Long activityId, Long AccountId);
+
+
+
+    /**
+     * @param awardCode 兑奖码
+     * @param activity
+     * @return
+     */
+    AccountAward checkAccountAward(String awardCode,Long activity);
+
+
+    void addAccountAward(AccountAward accountAward);
 }

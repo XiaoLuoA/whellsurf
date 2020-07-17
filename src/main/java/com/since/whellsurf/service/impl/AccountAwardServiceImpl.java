@@ -22,4 +22,14 @@ public class AccountAwardServiceImpl implements AccountAwardService {
         accountAward.setStatus(2);
         return accountAwardRep.save(accountAward);
     }
+
+    @Override
+    public AccountAward checkAccountAward(String awardCode, Long activity) {
+        return accountAwardRep.findAccountAwardByCode(awardCode,activity);
+    }
+
+    @Override
+    public void addAccountAward(AccountAward accountAward) {
+        accountAwardRep.save(accountAward);
+    }
 }
