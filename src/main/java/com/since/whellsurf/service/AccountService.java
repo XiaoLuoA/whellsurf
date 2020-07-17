@@ -1,7 +1,6 @@
 package com.since.whellsurf.service;
 
 import com.since.whellsurf.entity.Account;
-import org.springframework.stereotype.Service;
 
 
 public interface AccountService {

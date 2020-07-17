@@ -10,7 +10,7 @@ import javax.persistence.criteria.CriteriaBuilder;
     @Table(name = "shop")
     public class Shop {
 
-        @Id
+    @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
         @Column(name = "openid")
