@@ -17,7 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Random;
+import static com.since.whellsurf.common.Status.REDEEM_STATUS_OK;
 
 /**
  * @author jayzh
@@ -38,17 +38,18 @@ public class AccountAwardServiceImpl implements AccountAwardService {
     @Autowired
     private AwardRep awardRep;
 
-    /**
+
+    /**this implement method aims to modify the status of account award
+     * @param  activityId, AccountId
+     * @return AccountAward which is altered
      * @author jayzh
      */
     @Override
     public AccountAward redeem(Long activityId, Long AccountId) {
         AccountAward accountAward=accountAwardRep.findByActivityIdAndAccountId(activityId,AccountId);
-        accountAward.setStatus(2);
+        accountAward.setStatus(REDEEM_STATUS_OK);
         return accountAwardRep.save(accountAward);
     }
-
-
 
     @Override
     public AccountAward checkAccountAward(String awardCode, Long activity) {
@@ -71,7 +72,7 @@ public class AccountAwardServiceImpl implements AccountAwardService {
                 if (awardProbability <= award.getProbability()){
                     accountAward.setAwardName(award.getName());
                     accountAward.setAwardId(award.getId());
-                    accountAward.setStatus(Status.Award_Valid);
+                    accountAward.setStatus(Status.AWARD_VALID);
                     accountAward.setAwardCode(awardCode);
                 }
                 awardProbability += award.getProbability();
@@ -90,4 +91,38 @@ public class AccountAwardServiceImpl implements AccountAwardService {
         accountAwardRep.save(accountAward);
         return Ret.success(awardCode);
     }
+
+
+
+    /**
+     * this method aims to find AccountAward By ActivityId and status
+     *
+     * @param activityId
+     * @param status
+     * @return list of AccountAward
+     * @author jayzh
+     */
+    @Override
+    public List<AccountAward> findAccountAward(Long activityId, Integer status) {
+        List<AccountAward> accountAwards=accountAwardRep.findByActivityIdAndStatus(activityId,status);
+        return accountAwards;
+    }
+
+    /**
+     * this method aims to hide some information which is useless
+     *
+     * @param accountAwards
+     * @return list of AccountAward
+     * @author jayzh
+     */
+    @Override
+    public List<AccountAward> hideUselessInformation(List<AccountAward> accountAwards) {
+        for (AccountAward ad:accountAwards) {
+            ad.setOpenId(null);
+            ad.setActivityId(null);
+            ad.setAccountId(null);
+        }
+        return accountAwards;
+    }
+
 }

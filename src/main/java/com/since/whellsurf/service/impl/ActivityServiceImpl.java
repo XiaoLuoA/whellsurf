@@ -19,6 +19,9 @@ import javax.transaction.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static com.since.whellsurf.common.Status.ACTIVITY_END;
+import static com.since.whellsurf.common.Status.ACTIVITY_EXIT_INDEX;
+
 /**
  * @author  drj
  */
@@ -44,42 +47,53 @@ public class ActivityServiceImpl implements ActivityService {
     @Transactional
     @Override
     public Boolean insertActivityAndAwardList(Activity activity) {
-         activityRep.save(activity);
-         System.out.println(activity.getAwards());
+        activityRep.save(activity);
+        System.out.println(activity.getAwards());
         return true;
     }
 
-    /**
+
+
+
+    /**this abstract method aims to find the activity which has not been closed
+     * @param shopId
+     * @param status
+     * @return Object of activity which has not been closed
      * @author jayzh
      */
 
     @Override
     public Activity findExitActivity(Long shopId, Integer status){
-        Activity activity=activityRep.findByShopIdAndStatus(shopId,status);
-        return activity;
+        List<Activity> activities=activityRep.findByShopIdAndStatus(shopId,status);
+        return activities.get(ACTIVITY_EXIT_INDEX);
     }
-    /**
+
+
+    /**this  method aims to save the activity
+     * @param activity
+     * @return Object of activity
      * @author jayzh
      */
-
     @Override
     public Activity save(Activity activity) {
         return activityRep.save(activity);
     }
-    /**
+
+    /**this method aims to end the activity
+     * @param activity
+     * @return Object of activity
      * @author jayzh
      */
-
     @Override
     public Activity finish(Activity activity) {
-        activity.setStatus(2);
+        activity.setStatus(ACTIVITY_END);
         activity=save(activity);
         return activity;
     }
 
     @Override
     public Activity findValidActivityByShopId(Long shopId) {
-        return activityRep.findByShopIdAndStatus(shopId, Status.ACTIVITY_VALID);
+        return activityRep.findByShopIdAndStatus(shopId, Status.ACTIVITY_VALID).get(0);
     }
 
     @Override

@@ -2,23 +2,28 @@ package com.since.whellsurf.rep;
 
 import com.since.whellsurf.entity.Activity;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-
 import java.util.List;
-
 public interface ActivityRep extends JpaRepository<Activity,Long> {
 
-    /**
-     * @author wyh
+    /**this method aims to findActivity by activityId
+     * @param acId
+     * @return the Object of Activity
+     * @author jayzh
      */
-    /**
-      * 通过商家id和活动状态查找活动
-      * @param shopId 商家id
-      * @param status 状态
-      * @return 活动信息
-      */
+   public Activity findActivityById(Long acId);
 
-     Activity findByShopIdAndStatus(Long shopId, Integer status);
+
+    /**this method aims to find Activity By shopId and status
+     * @param shopId
+     * @param status
+     * @return list of Activity
+     * @author jayzh
+     */
+    public List<Activity> findByShopIdAndStatus(Long shopId, Integer status);
+
+
+
+
 
 
     /**
@@ -30,15 +35,7 @@ public interface ActivityRep extends JpaRepository<Activity,Long> {
      * @param status 活动状态
      * @return 活动信息
      */
-     Activity findByIdAndStatus(Long activityId,Integer status);
-
-
-    /**findActivity
-     * @param acId
-     * @return Activity
-     */
-    Activity findActivityById(Long acId);
-
+    Activity findByIdAndStatus(Long activityId,Integer status);
 
 
 }

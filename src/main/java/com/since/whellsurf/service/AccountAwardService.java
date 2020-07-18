@@ -5,18 +5,18 @@ import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.ret.Ret;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author jayzh
  */
 @Service
 public interface AccountAwardService {
-    /**redeem
+
+    /**this abstract method aims to modify the status of account award
      * @param activityId
      * @param AccountId
-     * @return
-     */
-
-    /**
+     * @return AccountAward which is altered
      * @author jayzh
      */
 
@@ -41,12 +41,26 @@ public interface AccountAwardService {
      * @author wyh
      */
 
-    /**
-     * 添加中奖信息
-     * @param accountAward 中奖信息
-     * @return 中奖信息
-     */
     Ret addAccountAward(AccountAward accountAward);
 
 
-}
+    /**this method aims to find AccountAward By ActivityId and status
+     * @param activityId
+     * @param status
+     * @return list of AccountAward
+     * @author jayzh
+     */
+    public List<AccountAward> findAccountAward(Long activityId, Integer status);
+
+
+    /**
+     * this abstract method aims to hide some information which is useless
+     *
+     * @param accountAwards
+     * @return list of AccountAward
+     * @author jayzh
+     */
+    public List<AccountAward> hideUselessInformation(List<AccountAward> accountAwards);
+
+
+    }
