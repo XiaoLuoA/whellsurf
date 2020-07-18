@@ -20,6 +20,9 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
+import static com.since.whellsurf.common.Status.AWARD_MAX_NUMBER;
+import static com.since.whellsurf.common.Status.PROBABILITY;
+
 @Controller
 @RequestMapping("/activity")
 
@@ -52,12 +55,12 @@ public class ActivityController {
                             awardNumber++;
                         }
                         //判断商品个数s
-                        if (awardNumber > 10) {
+                        if (awardNumber > AWARD_MAX_NUMBER) {
                             return Ret.error(AwardResult.AWARD_NUMBER_EXCEED);
                         }
                         else {
                             //判断参数合法性
-                                if (resultProbability == 100) {
+                                if (resultProbability == PROBABILITY) {
                                     // 插入两个表
                                      Long l=  activityService.insertActivity(activity,shop.getId());
                                     awardService.insertAwards(awardList,l);
