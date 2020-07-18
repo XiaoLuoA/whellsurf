@@ -4,7 +4,6 @@ import com.since.whellsurf.common.SessionKey;
 import com.since.whellsurf.common.Status;
 import com.since.whellsurf.entity.Account;
 import com.since.whellsurf.entity.Shop;
-import com.since.whellsurf.ret.Ret;
 import com.since.whellsurf.service.AccountService;
 import com.since.whellsurf.service.ShopService;
 import lombok.AllArgsConstructor;
@@ -80,7 +79,7 @@ public class WxRedirectController {
                 account.setAddress(user.getCountry() + user.getProvince() + user.getCity());
                 account.setHeadImgUrl(user.getHeadImgUrl());
                 account.setGender(user.getSexDesc());
-                account.setStatus(Status.Account_Exist);
+                account.setStatus(Status.ACCOUNT_EXIST);
                 accountService.save(account);
                 request.getSession().setAttribute(SessionKey.LOGIN_USER,account);
             } else  {

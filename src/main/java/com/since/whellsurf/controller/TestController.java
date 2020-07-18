@@ -38,13 +38,13 @@ public class TestController {
         return account;
     }
 
-    @ResponseBody
-    @PostMapping("/act")
-    public Account act(@RequestBody Account account){
-        Activity r = activityRep.findByShopIdAndStatus(1L,1);
-        System.out.println(r);
-        return account;
-    }
+//    @ResponseBody
+//    @PostMapping("/act")
+//    public Account act(@RequestBody Account account){
+//        Activity r = activityRep.findByShopIdAndStatus(1L,1);
+//        System.out.println(r);
+//        return account;
+//    }
 
 
 }

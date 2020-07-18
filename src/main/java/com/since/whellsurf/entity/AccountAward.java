@@ -15,7 +15,7 @@ public class AccountAward {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "openid")
     private String openId;
 
     @Column(name = "account_id")
@@ -41,10 +41,10 @@ public class AccountAward {
     @Column(name = "shop_id")
     private Long shopId;
 
-    @JsonIgnore
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "award_id")
-    private Award award;
+//    @JsonIgnore
+//    @ManyToOne(fetch=FetchType.LAZY)
+//    @JoinColumn(name = "award_id")
+//    private Award award;
 
 
 
