@@ -2,13 +2,20 @@ package com.since.whellsurf.service;
 
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
+import com.since.whellsurf.entity.Award;
+
 
 import java.util.List;
 
 public interface ActivityService  {
 
-    Boolean createActivity();
-    Boolean insertActivityAndAwardList(Activity activity);
+    /**
+     * @author drj
+     * 对处理之后的activity和awardList进行插入
+     * @param activity,shopId
+     * @return true
+     */
+    Long insertActivity(Activity activity,Long shopId);
 
 
 
@@ -18,28 +25,17 @@ public interface ActivityService  {
      * @return Object of activity which has not been closed
      * @author jayzh
      */
-   public Activity findExitActivity(Long shopId, Integer status);
-
-
-
-    /**this abstract method aims to save the activity
-     * @param activity
-     * @return Object of activity
-     * @author jayzh
-     */
-    public Activity save(Activity activity);
-
-
-    /**this abstract method aims to end the activity
-     * @param activity
-     * @return Object of activity
-     * @author jayzh
-     */
-    public Activity finish(Activity activity);
-
-
+    Activity findExitActivity(Long shopId, Integer status);
     /**
-     * this abstract method aim to get the list of accountAward by activity id;
+     * @author jayzh
+     */
+    Activity save(Activity activity);
+    /**
+     * @author jayzh
+     */
+    Activity finish(Activity activity);
+    /**
+     * this method aim to get the list of accountAward by activity id;
      * @param activityId
      * @return List<AccountAward>
      *
@@ -48,7 +44,7 @@ public interface ActivityService  {
 
 
     /**
-     * this abstract method aim to get the number of the people who participates in this activity by activity id;
+     * this method aim to get the number of the people who participates in this activity by activity id;
      * @param activityId
      * @return number of people
      * @author jayzh

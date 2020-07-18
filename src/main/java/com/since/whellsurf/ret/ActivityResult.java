@@ -1,5 +1,7 @@
 package com.since.whellsurf.ret;
-
+/**
+ * @author drj
+ */
 public interface ActivityResult extends Result{
     Code ACTIVITY_IS_RUNNING = new Code("500_401","已经有活动正在开展");//status=1 活动正在执行
     Code ACTIVITY_IS_OUTDATED = new Code("500_402","活动已经失效");//status=2 活动失效
