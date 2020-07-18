@@ -10,8 +10,7 @@ import java.util.List;
 
 public interface ActivityService  {
 
-    Boolean createActivity();
-    Boolean shopIsActivitty();
+
     Boolean insertActivityAndAwardList(Activity activity);
 
 

@@ -31,14 +31,7 @@ public class ActivityServiceImpl implements ActivityService {
     HttpServletRequest httpServletRequest;
 
 
-    /**
-     * @author drj
-     * 创建活动  todo: 1.userIsShop 2.isActivity 3.判断参数合法性 4.Insert 两个表
-     */
-    @Override
-    public Boolean createActivity() {
-        return null;
-    }
+
     /**
      * @author drj
      * 对处理之后的activity和awardList进行插入
@@ -53,23 +46,6 @@ public class ActivityServiceImpl implements ActivityService {
         return true;
     }
 
-
-
-    /**
-     * @author drj
-     * 判断商户的一个活动是否正在执行
-     */
-    @Override
-    public Boolean shopIsActivitty() {
-        Object ob = httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_USER);
-        Shop s = new Shop();
-        if (ob.getClass().isInstance(s.getClass())) {
-            return null;
-        } else {
-            return null;
-        }
-
-    }
 
 
     /**
