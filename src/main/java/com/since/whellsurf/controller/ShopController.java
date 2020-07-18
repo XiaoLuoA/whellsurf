@@ -132,8 +132,7 @@ public class ShopController {
             return Ret.error(AwardResult.AWARD_CODE_NOT_FOUND);
         }
         Shop shop = (Shop)httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_SHOP);
-        Shop shop1 = shopService.findByOpenId(shop.getOpenId());
-        Activity activity = activityService.findByShopIdAndStatus(shop1.getId());
+        Activity activity = activityService.findValidActivityByShopId(shop.getId());
         AccountAward accountAward = accountAwardService.checkAccountAward(awardCode,activity.getId());
         if (accountAward == null){
             return Ret.error(AwardResult.AWARD_CODE_NOT_FOUND);

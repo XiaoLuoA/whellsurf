@@ -30,9 +30,6 @@ import java.util.List;
 
         private Integer status;
 
-        @JsonIgnore
-        @OneToMany(mappedBy = "shop",fetch=FetchType.LAZY)
-        private List<Activity> activityList;
 
 }
 

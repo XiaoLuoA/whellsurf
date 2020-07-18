@@ -50,7 +50,7 @@ public class AccountController {
     @RequestMapping("/drawPrize")
     @ResponseBody
     public Ret drawPrize(Long activityId){
-        Activity activity = activityService.findByActivityIdAndStatus(activityId, Status.Activity_Valid);
+        Activity activity = activityService.findByActivityIdAndStatus(activityId, Status.ACTIVITY_VALID);
         if (activity == null){
             return Ret.error(ActivityResult.ACTIVITY_IS_OUTDATED);
         }
@@ -70,7 +70,7 @@ public class AccountController {
             accountAward.setHeadImgUrl(shop.getHeadImgUrl());
             accountAward.setActivityId(activityId);
             return accountAwardService.addAccountAward(accountAward);
-           
+
         }
 
         return Ret.error(AccountResult.ACCOUNT_NOT_LOGIN);

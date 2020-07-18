@@ -84,7 +84,7 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public Activity findByShopIdAndStatus(Long shopId) {
+    public Activity findValidActivityByShopId(Long shopId) {
         return activityRep.findByShopIdAndStatus(shopId, Status.Activity_Valid);
     }
 

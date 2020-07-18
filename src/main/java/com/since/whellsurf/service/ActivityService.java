@@ -52,7 +52,7 @@ public interface ActivityService  {
      * @param shopId 商家id
      * @return 活动信息
      */
-    Activity findByShopIdAndStatus(Long shopId);
+    Activity findValidActivityByShopId(Long shopId);
 
 
     /**
