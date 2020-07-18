@@ -19,8 +19,7 @@ import javax.transaction.Transactional;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
-import static com.since.whellsurf.common.Status.ACTIVITY_END;
-import static com.since.whellsurf.common.Status.ACTIVITY_EXIT_INDEX;
+import static com.since.whellsurf.common.Status.*;
 
 /**
  * @author  drj
@@ -56,7 +55,7 @@ public class ActivityServiceImpl implements ActivityService {
         activity1.setDetails(activity.getDetails());
         activity1.setImage(activity.getImage());
         activity1.setShopId(id);
-        activity1.setStatus(1);
+        activity1.setStatus(ACTIVITGY_INSERT);
         Long saveActivityId =activityRep.save(activity1).getId();
         return saveActivityId;
 
