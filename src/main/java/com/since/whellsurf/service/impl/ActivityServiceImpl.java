@@ -34,7 +34,10 @@ public class ActivityServiceImpl implements ActivityService {
     HttpServletRequest httpServletRequest;
 
 
-
+    /**
+     * @author drj
+     * 创建活动  todo: 1.userIsShop 2.isActivity 3.判断参数合法性 4.Insert 两个表
+     */
 
 
 
@@ -46,10 +49,17 @@ public class ActivityServiceImpl implements ActivityService {
      */
     @Transactional
     @Override
-    public Boolean insertActivityAndAwardList(Activity activity) {
-        activityRep.save(activity);
-        System.out.println(activity.getAwards());
-        return true;
+    public Long insertActivity(Activity activity,Long id) {
+        Activity activity1 =new Activity();
+
+        activity1.setTitle(activity.getTitle());
+        activity1.setDetails(activity.getDetails());
+        activity1.setImage(activity.getImage());
+        activity1.setShopId(id);
+        activity1.setStatus(1);
+        Long saveActivityId =activityRep.save(activity1).getId();
+        return saveActivityId;
+
     }
 
 
@@ -61,7 +71,6 @@ public class ActivityServiceImpl implements ActivityService {
      * @return Object of activity which has not been closed
      * @author jayzh
      */
-
     @Override
     public Activity findExitActivity(Long shopId, Integer status){
         List<Activity> activities=activityRep.findByShopIdAndStatus(shopId,status);

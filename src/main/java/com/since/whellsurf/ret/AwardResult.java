@@ -8,4 +8,5 @@ public interface AwardResult extends  Result{
     Code GET_AWARD_FAIL = new Code("900_402","抽奖失败!");
     Code GET_AWARD_REPEAT = new Code("900_405","只能抽奖一次!");
     Code AWARD_PROBABILITY_WRONG = new Code("700_401","奖品概率设置不为100%");
+    Code AWARD_NUMBER_EXCEED = new Code ("700_402","商品数量设置超过10");
 }

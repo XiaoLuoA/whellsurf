@@ -55,6 +55,7 @@ public class WXUtil {
         return ret;
     }
 
+
     /**
      * 生成微信静默授权用的url
      * @author luoxinyuan

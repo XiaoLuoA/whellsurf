@@ -2,13 +2,20 @@ package com.since.whellsurf.service;
 
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
+import com.since.whellsurf.entity.Award;
+
 
 import java.util.List;
 
 public interface ActivityService  {
 
-
-    Boolean insertActivityAndAwardList(Activity activity);
+    /**
+     * @author drj
+     * 对处理之后的activity和awardList进行插入
+     * @param activity,shopId
+     * @return true
+     */
+    Long insertActivity(Activity activity,Long shopId);
 
 
 
