@@ -9,6 +9,7 @@ import javax.persistence.*;
 @Entity
 @Data
 @Table(name = "award")
+@ToString
 public class Award {
 
     @Id

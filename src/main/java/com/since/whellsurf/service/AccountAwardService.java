@@ -18,7 +18,7 @@ public interface AccountAwardService {
      * @author jayzh
      */
 
-    public AccountAward redeem(Long activityId, Long AccountId);
+    AccountAward redeem(Long activityId, Long AccountId);
 
 
 

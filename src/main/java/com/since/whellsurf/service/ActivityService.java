@@ -30,14 +30,14 @@ public interface ActivityService  {
      * @return List<AccountAward>
      *
      */
-    public List<AccountAward> getActivityAwardsById(Long activityId);
+    List<AccountAward> getActivityAwardsById(Long activityId);
 
     /**
      * this method aim to get the number of the people who participates in this activity by activity id;
      * @param activityId
      * @return number of people
      */
-    public int getAmountJoinActivity(Long activityId);
+    int getAmountJoinActivity(Long activityId);
 
     /**
      * 通过openId查询商家信息
