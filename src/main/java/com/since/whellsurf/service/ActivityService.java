@@ -12,6 +12,9 @@ import java.util.List;
 public interface ActivityService  {
 
 
+    Boolean createActivity();
+    Boolean insertActivityAndAwardList(Activity activity);
+
     // todo  1 先插入activity 2在插入award
 
     /**

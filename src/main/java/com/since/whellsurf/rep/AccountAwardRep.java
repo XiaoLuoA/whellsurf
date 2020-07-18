@@ -23,4 +23,12 @@ public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
      */
     @Override
     AccountAward save(AccountAward accountAward);
+
+
+    /**
+     * 通过openId查找中奖信息
+     * @param openId 用户openId
+     * @return
+     */
+    AccountAward findByOpenId(String openId);
 }

@@ -1,5 +1,12 @@
 package com.since.whellsurf.controller;
 
+
+import com.since.whellsurf.common.SessionKey;
+import com.since.whellsurf.entity.AccountAward;
+import com.since.whellsurf.entity.Activity;
+import com.since.whellsurf.entity.Shop;
+import com.since.whellsurf.ret.AwardResult;
+import com.since.whellsurf.ret.Result;
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
@@ -28,12 +35,16 @@ import static com.since.whellsurf.ret.ShopResult.NOT_FIND_SHOP_ACTIVITY;
 @Controller
 @RequestMapping("/shops")
 public class ShopController {
+
     @Autowired
     AccountAwardService accountAwardService;
+
     @Autowired
     ActivityService activityService;
+
     @Autowired
     ShopService shopService;
+
     @Autowired
     HttpServletRequest httpServletRequest;
 
@@ -112,6 +123,21 @@ public class ShopController {
         }
         Ret ret=new Ret(SUCCESS, accountAward);
         return ret;
+    }
+
+
+    @RequestMapping("/check")
+    public Ret checkAccountAward(String awardCode){
+        if (awardCode == null || "".equals(awardCode)){
+            return Ret.error(AwardResult.AWARD_CODE_NOT_FOUND);
+        }
+        Shop shop = (Shop)httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_SHOP);
+        Activity activity = activityService.findValidActivityByShopId(shop.getId());
+        AccountAward accountAward = accountAwardService.checkAccountAward(awardCode,activity.getId());
+        if (accountAward == null){
+            return Ret.error(AwardResult.AWARD_CODE_NOT_FOUND);
+        }
+        return Ret.success(accountAward);
     }
 
 }

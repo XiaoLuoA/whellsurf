@@ -14,4 +14,6 @@ import java.util.List;
 public interface ShopService {
 
     Shop findByOpenId(String openId);
+
+
 }

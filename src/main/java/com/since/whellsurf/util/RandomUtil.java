@@ -34,4 +34,11 @@ public class RandomUtil {
                 .mapToObj(i->""+ RANDOM_STR[i]).reduce("",(a, b)->a+b);
         return randomCode;
     }
+
+
+    public static Double genAwardRandom(double min,double max,int maxDigit){
+        int pow = (int) Math.pow(10,maxDigit);
+        double number = Math.floor((Math.random() * (max - min) + min) * pow) / pow;
+        return number;
+    }
 }
