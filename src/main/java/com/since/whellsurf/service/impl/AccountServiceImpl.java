@@ -8,10 +8,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+/**
+ * @author 王英豪111
+ */
 @Service
 public class AccountServiceImpl implements AccountService {
+
     @Autowired
     AccountRep accountRep;
+
     @Override
     public Account findById(Long id) {
         Account testAccount= accountRep.findById(id).get();
@@ -19,8 +24,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account save(Account account) {
+    public Account addAccount(Account account) {
         return accountRep.save(account);
     }
 
+    @Override
+    public Account findByOpenId(String openId) {
+        return accountRep.findByOpenId(openId);
+    }
 }

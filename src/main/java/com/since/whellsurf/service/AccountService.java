@@ -18,7 +18,19 @@ public interface AccountService {
      * @param account 用户信息
      * @return 用户信息集合
      */
-    Account save(Account account);
+    Account addAccount(Account account);
+
+
+
+    /**
+     * @author wyh
+     */
+    /**
+     * 通过openId查找用户
+     * @param openId 用户openId
+     * @return 用户对象实体
+     */
+    Account findByOpenId(String openId);
 
 
 }

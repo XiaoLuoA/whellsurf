@@ -58,7 +58,7 @@ public class AccountAwardServiceImpl implements AccountAwardService {
 
     @Override
     public Ret addAccountAward(AccountAward accountAward) {
-        String awardCode = RandomUtil.genRandomCode(Status.AWARD_VALID);
+        String awardCode = RandomUtil.genRandomCode(Status.AWARD_CODE_LENGTH);
         Double awardProbability = RandomUtil.genAwardRandom(0.01,100,2);
         List<Award> awardList = awardRep.findAllAward(accountAward.getActivityId());
         activityService.findExitActivity(accountAward.getActivityId(),Status.ACTIVITY_VALID);

@@ -12,6 +12,8 @@ public interface Status {
     Integer AWARD_CODE_LENGTH = 10;
     Integer AWARD_VALID = 1;
 
+    Integer SHOP_NOT_ACTIVATE = 2;
+
 
     Integer REDEEM_STATUS_OK=2;
     Integer REDEEM_STATUS_NO=1;
