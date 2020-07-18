@@ -10,37 +10,56 @@ public interface ActivityService  {
 
     Boolean createActivity();
     Boolean shopIsActivitty();
-    /**
+
+
+
+
+
+    /**this abstract method aims to find the activity which has not been closed
+     * @param shopId
+     * @param status
+     * @return Object of activity which has not been closed
      * @author jayzh
      */
-    Activity findExitActivity(Long shopId, Integer status);
-    /**
+   public Activity findExitActivity(Long shopId, Integer status);
+
+
+
+    /**this abstract method aims to save the activity
+     * @param activity
+     * @return Object of activity
      * @author jayzh
      */
-    Activity save(Activity activity);
-    /**
+    public Activity save(Activity activity);
+
+
+    /**this abstract method aims to end the activity
+     * @param activity
+     * @return Object of activity
      * @author jayzh
      */
-    Activity finish(Activity activity);
+    public Activity finish(Activity activity);
+
+
     /**
-     * this method aim to get the list of accountAward by activity id;
+     * this abstract method aim to get the list of accountAward by activity id;
      * @param activityId
      * @return List<AccountAward>
-     *
+     * @author jayzh
      */
     public List<AccountAward> getActivityAwardsById(Long activityId);
 
+
     /**
-     * this method aim to get the number of the people who participates in this activity by activity id;
+     * this abstract method aim to get the number of the people who participates in this activity by activity id;
      * @param activityId
      * @return number of people
+     * @author jayzh
      */
     public int getAmountJoinActivity(Long activityId);
 
-    /**
-     * 通过openId查询商家信息
-     * @param openId 商家用户openId
-     * @return 商家信息
-     */
+
+
+
 
 }

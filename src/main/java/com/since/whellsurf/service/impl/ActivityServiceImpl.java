@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
+import static com.since.whellsurf.common.Status.ACTIVITY_EXIT_INDEX;
+
 /**
  * @author  drj
  */
@@ -59,8 +61,8 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Activity findExitActivity(Long shopId, Integer status){
-        Activity activity=activityRep.findByShopIdAndStatus(shopId,status);
-        return activity;
+        List<Activity> activities=activityRep.findByShopIdAndStatus(shopId,status);
+        return activities.get(ACTIVITY_EXIT_INDEX);
     }
     /**
      * @author jayzh
@@ -107,5 +109,7 @@ public class ActivityServiceImpl implements ActivityService {
     public int getAmountJoinActivity(Long activityId) {
         return getActivityAwardsById(activityId).size();
     }
+
+
 
 }
