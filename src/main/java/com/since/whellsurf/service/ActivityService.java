@@ -4,14 +4,30 @@ package com.since.whellsurf.service;
 import com.since.whellsurf.entity.Activity;
 
 import com.since.whellsurf.entity.AccountAward;
+import com.since.whellsurf.entity.Award;
 
 
 import java.util.List;
 
 public interface ActivityService  {
 
-    Boolean createActivity();
-    Boolean insertActivityAndAwardList(Activity activity);
+
+    // todo  1 先插入activity 2在插入award
+
+    /**
+     * @author drj
+     */
+
+    Long insertActivity(Activity activity,Long shopId);
+
+
+
+
+
+
+
+
+
     /**
      * @author jayzh
      */

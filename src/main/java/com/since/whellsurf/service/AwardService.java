@@ -1,7 +1,12 @@
 package com.since.whellsurf.service;
 
-import com.since.whellsurf.entity.Activity;
+import com.since.whellsurf.entity.Award;
+
+import java.util.List;
 
 public interface AwardService {
+
+    void insertAwards(List<Award> awards,Long l);
+    
 
 }

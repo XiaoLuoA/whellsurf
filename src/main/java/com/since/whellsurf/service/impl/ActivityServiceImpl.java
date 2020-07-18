@@ -1,11 +1,9 @@
 package com.since.whellsurf.service.impl;
 
 
-import com.since.whellsurf.entity.Activity;
+import com.since.whellsurf.entity.*;
 import com.since.whellsurf.common.SessionKey;
-import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
-import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.rep.ShopRep;
 import com.since.whellsurf.service.ActivityService;
@@ -31,25 +29,28 @@ public class ActivityServiceImpl implements ActivityService {
      * @author drj
      * 创建活动  todo: 1.userIsShop 2.isActivity 3.判断参数合法性 4.Insert 两个表
      */
-    @Override
-    public Boolean createActivity() {
-        return null;
-    }
 
 
     /**
      * @author drj
-     * 对处理之后的activity和awardList进行插入
-     * @param activity
-     * @return true
+     * 插入一个Activity
+     * @param activity,id
+     * @return save的Activity的id
      */
-    @Transactional
     @Override
-    public Boolean insertActivityAndAwardList(Activity activity) {
-         activityRep.save(activity);
-         System.out.println(activity.getAwards());
-        return true;
+    public Long insertActivity(Activity activity,Long id) {
+        Activity activity1 =new Activity();
+
+        activity1.setTitle(activity.getTitle());
+        activity1.setDetails(activity.getDetails());
+        activity1.setImage(activity.getImage());
+        activity1.setShopId(id);
+        activity1.setStatus(1);
+        Long saveActivityId =activityRep.save(activity1).getId();
+        return saveActivityId;
+
     }
+
 
     /**
      * @author jayzh
