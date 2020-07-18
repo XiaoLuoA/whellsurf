@@ -1,18 +1,15 @@
 package com.since.whellsurf.entity;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
 
 @Entity
-    @Data
-    @Table(name = "shop")
+@Data
+@Table(name = "shop")
 @NoArgsConstructor
-    public class Shop {
+public class Shop {
 
-    @Id
+        @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
         @Column(name = "openid")
@@ -28,10 +25,6 @@ import javax.persistence.criteria.CriteriaBuilder;
         private String gender;
 
         private Integer status;
-
-//        @JsonIgnore
-//        @OneToOne(mappedBy = "shop")
-//        private Activity activity;
 
 }
 

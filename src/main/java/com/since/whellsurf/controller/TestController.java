@@ -28,13 +28,10 @@ public class TestController {
 
     @ResponseBody
     @PostMapping("/multi")
-    public Account mutiBody(@RequestBody Account account){
-        Users[] users = new Users[1000];
-        List<Users> usersList = Arrays.stream(users).map(users1 -> {
-            users1 = new Users();
-            users1.setName(RandomUtil.genRandomCode(4));
-            return users1;
-        }).collect(Collectors.toList());
+    public Activity mutiBody(@RequestBody Activity account){
+        int sum = account.getAwards().stream().mapToInt(a->a.getProbability()).sum();
+        System.out.println(sum);
+        System.out.println(account);
         return account;
     }
 
