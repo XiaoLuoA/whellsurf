@@ -2,6 +2,8 @@ package com.since.whellsurf.service.impl;
 
 
 import com.since.whellsurf.common.SessionKey;
+import com.since.whellsurf.common.Status;
+import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.service.ActivityService;
@@ -45,6 +47,11 @@ public class ActivityServiceImpl implements ActivityService {
             return null;
         }
 
+    }
+
+    @Override
+    public Activity findByShopIdAndStatus(Long shopId) {
+        return activityRep.findByShopIdAndStatus(shopId, Status.Activity_Using);
     }
 
 

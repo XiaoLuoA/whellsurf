@@ -5,14 +5,15 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
 
-@Entity
+    @Entity
     @Data
     @Table(name = "shop")
-@NoArgsConstructor
+    @NoArgsConstructor
     public class Shop {
 
-    @Id
+        @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
         @Column(name = "openid")
@@ -29,9 +30,9 @@ import javax.persistence.criteria.CriteriaBuilder;
 
         private Integer status;
 
-//        @JsonIgnore
-//        @OneToOne(mappedBy = "shop")
-//        private Activity activity;
+        @JsonIgnore
+        @OneToMany(mappedBy = "shop",fetch=FetchType.LAZY)
+        private List<Activity> activityList;
 
 }
 

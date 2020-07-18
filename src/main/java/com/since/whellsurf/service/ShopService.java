@@ -10,4 +10,6 @@ public interface ShopService {
      * @return 商家信息
      */
     Shop findByOpenId(String openId);
+
+
 }
