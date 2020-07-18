@@ -3,6 +3,8 @@ package com.since.whellsurf.service.impl;
 
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.common.SessionKey;
+import com.since.whellsurf.common.Status;
+import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
@@ -25,6 +27,8 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Autowired
     ActivityRep activityRep;
+    @Autowired
+    HttpServletRequest httpServletRequest;
 
 
     /**
@@ -79,7 +83,15 @@ public class ActivityServiceImpl implements ActivityService {
         return activity;
     }
 
+    @Override
+    public Activity findValidActivityByShopId(Long shopId) {
+        return activityRep.findByShopIdAndStatus(shopId, Status.Activity_Valid);
+    }
 
+    @Override
+    public Activity findByActivityIdAndStatus(Long activityId, Integer status) {
+        return activityRep.findByIdAndStatus(activityId, status);
+    }
 
 
     /**

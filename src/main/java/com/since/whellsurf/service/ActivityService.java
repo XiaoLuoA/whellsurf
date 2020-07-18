@@ -1,5 +1,7 @@
 package com.since.whellsurf.service;
 
+import com.since.whellsurf.entity.Activity;
+
 
 import com.since.whellsurf.entity.Activity;
 
@@ -9,6 +11,7 @@ import com.since.whellsurf.entity.AccountAward;
 import java.util.List;
 
 public interface ActivityService  {
+
 
     Boolean createActivity();
     Boolean insertActivityAndAwardList(Activity activity);
@@ -39,10 +42,27 @@ public interface ActivityService  {
      */
     public int getAmountJoinActivity(Long activityId);
 
-    /**
-     * 通过openId查询商家信息
-     * @param openId 商家用户openId
-     * @return 商家信息
-     */
 
+    /**
+     * @author wyh
+     */
+    /**
+    /**
+     * 通过商家id和活动状态查找活动
+     * @param shopId 商家id
+     * @return 活动信息
+     */
+    Activity findValidActivityByShopId(Long shopId);
+
+
+    /**
+     * @author wyh
+     */
+    /**
+     * 通过活动id和状态查询活动
+     * @param activityId 活动id
+     * @param status 活动状态
+     * @return 活动信息
+     */
+    Activity findByActivityIdAndStatus(Long activityId,Integer status);
 }

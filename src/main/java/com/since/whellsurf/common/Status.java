@@ -5,7 +5,12 @@ package com.since.whellsurf.common;
  */
 public interface Status {
 
-    Integer Account_Exist = 1;
+    Integer ACCOUNT_EXIST = 1;
+    Integer ACTIVITY_VALID = 1;
+    Integer ACTIVITY_INVALID = 2;
+
+    Integer AWARD_CODE_LENGTH = 10;
+    Integer Award_Valid = 1;
 
 
 }
