@@ -3,12 +3,30 @@ package com.since.whellsurf.service;
 
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.ret.Ret;
+import org.springframework.stereotype.Service;
 
 /**
- * @author 王英豪111
+ * @author jayzh
  */
+@Service
 public interface AccountAwardService {
+    /**redeem
+     * @param activityId
+     * @param AccountId
+     * @return
+     */
 
+    /**
+     * @author jayzh
+     */
+
+    public AccountAward redeem(Long activityId, Long AccountId);
+
+
+
+    /**
+     * @author wyh
+     */
 
     /**
      * 核查中奖信息
@@ -18,6 +36,10 @@ public interface AccountAwardService {
      */
     AccountAward checkAccountAward(String awardCode,Long activityId);
 
+
+    /**
+     * @author wyh
+     */
 
     /**
      * 添加中奖信息

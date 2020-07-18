@@ -28,7 +28,7 @@ public class AccountAward {
     private String awardName;
 
     @Column(name = "award_id")
-    private String awardId;
+    private Long awardId;
 
     private Integer status;
 
@@ -45,11 +45,6 @@ public class AccountAward {
     @ManyToOne(fetch=FetchType.LAZY)
     @JoinColumn(name = "award_id")
     private Award award;
-
-    @JsonIgnore
-    @ManyToOne(fetch=FetchType.LAZY)
-    @JoinColumn(name = "account_id")
-    private Account account;
 
 
 

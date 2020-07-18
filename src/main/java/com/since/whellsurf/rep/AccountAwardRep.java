@@ -1,20 +1,11 @@
 package com.since.whellsurf.rep;
 
 import com.since.whellsurf.entity.AccountAward;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
-/**
- * @author 王英豪111
- */
-@Repository
 public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
-
-
+    AccountAward findByActivityIdAndAccountId(Long activityId,Long AccountId);
     /**
      * 通过活动id和兑奖码核对兑奖信息
      * @param code 兑奖码
@@ -35,8 +26,9 @@ public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
 
 
     /**
-     * 通过openId查找
+     * 通过openId查找中奖信息
+     * @param openId 用户openId
      * @return
      */
-    AccountAward findByOpenId(String openIdss);
+    AccountAward findByOpenId(String openId);
 }
