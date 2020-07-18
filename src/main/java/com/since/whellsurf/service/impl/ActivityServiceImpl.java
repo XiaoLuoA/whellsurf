@@ -31,14 +31,8 @@ public class ActivityServiceImpl implements ActivityService {
     HttpServletRequest httpServletRequest;
 
 
-    /**
-     * @author drj
-     * 创建活动  todo: 1.userIsShop 2.isActivity 3.判断参数合法性 4.Insert 两个表
-     */
-    @Override
-    public Boolean createActivity() {
-        return null;
-    }
+
+
 
 
     /**
@@ -85,7 +79,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Activity findValidActivityByShopId(Long shopId) {
-        return activityRep.findByShopIdAndStatus(shopId, Status.Activity_Valid);
+        return activityRep.findByShopIdAndStatus(shopId, Status.ACTIVITY_VALID);
     }
 
     @Override

@@ -8,11 +8,27 @@ import org.springframework.stereotype.Repository;
 public interface ShopRep extends JpaRepository<Shop,Long> {
 
     /**
+     * @author wyh
+     */
+    /**
      * 通过openId查询商家信息
      * @param openId 商家用户openId
      * @return 商家信息
      */
     Shop findByOpenId(String openId);
+
+    /**
+     * @author wyh
+     */
+    /**
+     * 添加商家信息
+     * @param shop 商家信息
+     * @return 商家信息
+     */
+    @Override
+    Shop save(Shop shop);
+
+
 
 
 }

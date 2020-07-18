@@ -9,7 +9,7 @@ import com.since.whellsurf.ret.AwardResult;
 import com.since.whellsurf.ret.Result;
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
-import com.since.whellsurf.entity.Shop;
+import com.since.whellsurf.dto.CheckAwardParameter;
 import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.ret.Ret;
 import com.since.whellsurf.service.AccountAwardService;
@@ -137,7 +137,11 @@ public class ShopController {
         if (accountAward == null){
             return Ret.error(AwardResult.AWARD_CODE_NOT_FOUND);
         }
-        return Ret.success(accountAward);
+        CheckAwardParameter cap = new CheckAwardParameter();
+        cap.setAwardName(accountAward.getAwardName());
+        cap.setHeadImgUrl(accountAward.getHeadImgUrl());
+        cap.setStatus(accountAward.getStatus());
+        return Ret.success(cap);
     }
 
 }

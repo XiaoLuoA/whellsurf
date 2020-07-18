@@ -10,12 +10,27 @@ public interface AccountRep extends JpaRepository<Account,Long> {
 
 
     /**
+     * @author wyh
+     */
+    /**
      * 添加用户信息
-     * @param account 用户信息
-     * @return 用户信息集合
+     * @param account 用户对象实体
+     * @return 用户对象实体
      */
     @Override
     Account save(Account account);
+
+
+
+    /**
+     * @author wyh
+     */
+    /**
+     * 通过openId查找用户
+     * @param openId 用户openId
+     * @return 用户对象实体
+     */
+    Account findByOpenId(String openId);
 
 }
 

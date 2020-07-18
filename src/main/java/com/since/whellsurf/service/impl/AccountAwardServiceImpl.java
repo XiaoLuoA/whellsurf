@@ -57,10 +57,10 @@ public class AccountAwardServiceImpl implements AccountAwardService {
 
     @Override
     public Ret addAccountAward(AccountAward accountAward) {
-        String awardCode = RandomUtil.genRandomCode(Status.Award_CodeN);
+        String awardCode = RandomUtil.genRandomCode(Status.AWARD_CODE_LENGTH);
         Double awardProbability = RandomUtil.genAwardRandom(0.01,100,2);
         List<Award> awardList = awardRep.findAllAward(accountAward.getActivityId());
-        activityService.findExitActivity(accountAward.getActivityId(),Status.Activity_Valid);
+        activityService.findExitActivity(accountAward.getActivityId(),Status.ACTIVITY_VALID);
         Shop shop = shopService.findByOpenId(accountAward.getOpenId());
         if (shop == null){
            AccountAward accountAward1 = accountAwardRep.findByOpenId(accountAward.getOpenId());

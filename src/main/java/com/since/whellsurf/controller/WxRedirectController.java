@@ -51,7 +51,14 @@ public class WxRedirectController {
             WxMpUser user = wxService.oauth2getUserInfo(accessToken, null);
             Shop shop = shopService.findByOpenId(user.getOpenId());
             if (shop == null){
-                 //不是商家没有权限
+                 //不是商家没有权限，添加到数据库（状态为未激活）
+                shop.setOpenId(user.getOpenId());
+                shop.setNickname(user.getNickname());
+                shop.setAddress(user.getCountry() + user.getProvince() + user.getCity());
+                shop.setHeadImgUrl(user.getHeadImgUrl());
+                shop.setGender(user.getSexDesc());
+                shop.setStatus(Status.SHOP_NOT_ACTIVATE);
+                shopService.addShop(shop);
                 return "/page/error/403.html";
             } else {
                 request.getSession().setAttribute(SessionKey.LOGIN_SHOP,shop);
@@ -74,14 +81,16 @@ public class WxRedirectController {
             WxMpUser user = wxService.oauth2getUserInfo(accessToken, null);
             Shop shop = shopService.findByOpenId(user.getOpenId());
             if (shop == null){
-                Account account = new Account();
-                account.setOpenId(user.getOpenId());
-                account.setNickname(user.getNickname());
-                account.setAddress(user.getCountry() + user.getProvince() + user.getCity());
-                account.setHeadImgUrl(user.getHeadImgUrl());
-                account.setGender(user.getSexDesc());
-                account.setStatus(Status.Account_Exist);
-                accountService.save(account);
+                Account account = accountService.findByOpenId(user.getOpenId());
+                if (account == null){
+                    account.setOpenId(user.getOpenId());
+                    account.setNickname(user.getNickname());
+                    account.setAddress(user.getCountry() + user.getProvince() + user.getCity());
+                    account.setHeadImgUrl(user.getHeadImgUrl());
+                    account.setGender(user.getSexDesc());
+                    account.setStatus(Status.ACCOUNT_EXIST);
+                    accountService.addAccount(account);
+                }
                 request.getSession().setAttribute(SessionKey.LOGIN_USER,account);
             } else  {
                 request.getSession().setAttribute(SessionKey.LOGIN_SHOP,shop);

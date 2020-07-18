@@ -28,5 +28,10 @@ public class ShopServiceImpl implements ShopService {
         return shopRep.findByOpenId(openId);
     }
 
+    @Override
+    public void addShop(Shop shop) {
+        shopRep.save(shop);
+    }
+
 
 }

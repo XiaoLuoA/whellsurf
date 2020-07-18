@@ -13,7 +13,6 @@ import java.util.List;
 public interface ActivityService  {
 
 
-    Boolean createActivity();
     Boolean insertActivityAndAwardList(Activity activity);
     /**
      * @author jayzh

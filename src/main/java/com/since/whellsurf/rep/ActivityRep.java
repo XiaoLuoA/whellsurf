@@ -25,7 +25,7 @@ public interface ActivityRep extends JpaRepository<Activity,Long> {
      * @author wyh
      */
     /**
-     * 通过活动id和状态查询活动
+     * 通过活动id和
      * @param activityId 活动id
      * @param status 活动状态
      * @return 活动信息
