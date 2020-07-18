@@ -13,7 +13,6 @@ public interface ActivityService  {
 
 
     Boolean createActivity();
-    Boolean insertActivityAndAwardList(Activity activity);
 
     // todo  1 先插入activity 2在插入award
 
@@ -29,7 +28,9 @@ public interface ActivityService  {
 
 
 
+    Activity findValidActivityByShopId(Long shopId);
 
+    Activity findByActivityIdAndStatus(Long activityId, Integer status);
 
     /**
      * @author jayzh

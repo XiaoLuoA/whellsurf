@@ -88,12 +88,12 @@ public class ActivityServiceImpl implements ActivityService {
         return activity;
     }
 
-    @Override
+
     public Activity findValidActivityByShopId(Long shopId) {
-        return activityRep.findByShopIdAndStatus(shopId, Status.Activity_Valid);
+        return activityRep.findByShopIdAndStatus(shopId, Status.ACTIVITY_VALID);
     }
 
-    @Override
+
     public Activity findByActivityIdAndStatus(Long activityId, Integer status) {
         return activityRep.findByIdAndStatus(activityId, status);
     }
