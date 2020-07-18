@@ -22,6 +22,7 @@ import java.util.Map;
 
 @Controller
 @RequestMapping("/activity")
+
 public class ActivityController {
     @Autowired
     ActivityService activityService;

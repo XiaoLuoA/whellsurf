@@ -9,7 +9,12 @@ import java.util.List;
 
 public interface ActivityService  {
 
-
+    /**
+     * @author drj
+     * 对处理之后的activity和awardList进行插入
+     * @param activity,shopId
+     * @return true
+     */
     Long insertActivity(Activity activity,Long shopId);
 
 
