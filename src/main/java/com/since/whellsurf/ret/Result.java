@@ -5,4 +5,5 @@ package com.since.whellsurf.ret;
  */
 public interface Result {
     Code SUCCESS = new Code("0");
+
 }

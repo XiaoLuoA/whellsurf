@@ -3,6 +3,9 @@ package com.since.whellsurf.service;
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 
+
+import com.since.whellsurf.entity.Activity;
+
 import com.since.whellsurf.entity.AccountAward;
 
 
@@ -10,7 +13,7 @@ import java.util.List;
 
 public interface ActivityService  {
 
-
+    Boolean createActivity();
     Boolean insertActivityAndAwardList(Activity activity);
 
 
@@ -45,7 +48,7 @@ public interface ActivityService  {
      * this abstract method aim to get the list of accountAward by activity id;
      * @param activityId
      * @return List<AccountAward>
-     * @author jayzh
+     *
      */
     public List<AccountAward> getActivityAwardsById(Long activityId);
 
@@ -61,5 +64,14 @@ public interface ActivityService  {
 
 
 
-
+    /**
+     * @author wyh
+     */
+    /**
+     * 通过活动id和状态查询活动
+     * @param activityId 活动id
+     * @param status 活动状态
+     * @return 活动信息
+     */
+    Activity findByActivityIdAndStatus(Long activityId,Integer status);
 }

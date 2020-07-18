@@ -27,8 +27,6 @@ public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
     @Override
     AccountAward save(AccountAward accountAward);
 
-
-
     /**this method aims to find AccountAward By ActivityId and status
      * @param activityId
      * @param status
@@ -37,6 +35,12 @@ public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
      */
     public List<AccountAward> findByActivityIdAndStatus(Long activityId, Integer status);
 
+    /**
+     * 通过openId查找中奖信息
+     * @param openId 用户openId
+     * @return
+     */
+    AccountAward findByOpenId(String openId);
 
 
 }
