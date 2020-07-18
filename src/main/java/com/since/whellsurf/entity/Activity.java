@@ -1,8 +1,6 @@
 package com.since.whellsurf.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,8 +12,6 @@ import java.util.List;
 public class Activity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
-
     private Long id;
 
     private String title;
@@ -38,6 +34,4 @@ public class Activity {
     @OneToMany(fetch=FetchType.LAZY)
     @JoinColumn(name = "activity_id")
     private List<Award> awards;
-
-
 }

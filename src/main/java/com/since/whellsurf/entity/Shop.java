@@ -1,14 +1,13 @@
 package com.since.whellsurf.entity;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 
-    @Entity
-    @Data
-    @Table(name = "shop")
-    @NoArgsConstructor
-    public class Shop {
+@Entity
+@Data
+@Table(name = "shop")
+@NoArgsConstructor
+public class Shop {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
