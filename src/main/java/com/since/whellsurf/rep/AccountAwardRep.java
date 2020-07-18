@@ -1,8 +1,11 @@
 package com.since.whellsurf.rep;
 
 import com.since.whellsurf.entity.AccountAward;
+import com.since.whellsurf.entity.Activity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+
+import java.util.List;
 
 public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
     AccountAward findByActivityIdAndAccountId(Long activityId,Long AccountId);
@@ -23,4 +26,21 @@ public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
      */
     @Override
     AccountAward save(AccountAward accountAward);
+
+    /**this method aims to find AccountAward By ActivityId and status
+     * @param activityId
+     * @param status
+     * @return list of AccountAward
+     * @author jayzh
+     */
+    public List<AccountAward> findByActivityIdAndStatus(Long activityId, Integer status);
+
+    /**
+     * 通过openId查找中奖信息
+     * @param openId 用户openId
+     * @return
+     */
+    AccountAward findByOpenId(String openId);
+
+
 }

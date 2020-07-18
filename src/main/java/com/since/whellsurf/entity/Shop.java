@@ -26,6 +26,7 @@ public class Shop {
 
         private Integer status;
 
+
 }
 
 
