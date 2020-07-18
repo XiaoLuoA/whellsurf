@@ -3,15 +3,16 @@ package com.since.whellsurf.service;
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 
+import com.since.whellsurf.entity.AccountAward;
+
+
 import java.util.List;
 
 public interface ActivityService  {
 
-
     Boolean createActivity();
     Boolean shopIsActivitty();
-
-
+    Boolean insertActivityAndAwardList(Activity activity);
 
 
 
