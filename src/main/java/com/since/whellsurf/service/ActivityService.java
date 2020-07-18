@@ -3,12 +3,6 @@ package com.since.whellsurf.service;
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 
-
-import com.since.whellsurf.entity.Activity;
-
-import com.since.whellsurf.entity.AccountAward;
-
-
 import java.util.List;
 
 public interface ActivityService  {
@@ -74,4 +68,19 @@ public interface ActivityService  {
      * @return 活动信息
      */
     Activity findByActivityIdAndStatus(Long activityId,Integer status);
+
+
+    /**
+     * @author wyh
+     */
+    /**
+     /**
+     * 通过商家id和活动状态查找活动
+     * @param shopId 商家id
+     * @return 活动信息
+     */
+    Activity findValidActivityByShopId(Long shopId);
+
+
+
 }

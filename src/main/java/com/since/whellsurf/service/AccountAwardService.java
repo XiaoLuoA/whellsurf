@@ -41,7 +41,7 @@ public interface AccountAwardService {
      * @author wyh
      */
 
-    void addAccountAward(AccountAward accountAward);
+    Ret addAccountAward(AccountAward accountAward);
 
 
     /**this method aims to find AccountAward By ActivityId and status

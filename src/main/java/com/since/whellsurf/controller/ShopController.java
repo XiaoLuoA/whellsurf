@@ -1,15 +1,10 @@
 package com.since.whellsurf.controller;
 
-
 import com.since.whellsurf.common.SessionKey;
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.ret.AwardResult;
-import com.since.whellsurf.ret.Result;
-import com.since.whellsurf.entity.AccountAward;
-import com.since.whellsurf.entity.Activity;
-import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.ret.Ret;
 import com.since.whellsurf.service.AccountAwardService;
 import com.since.whellsurf.service.ActivityService;
@@ -18,10 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
 import static com.since.whellsurf.common.Status.*;
 import static com.since.whellsurf.ret.AccountAwardResult.NOT_FIND_ACCOUNT_AWARD;
 import static com.since.whellsurf.ret.ActivityResult.ACTIVITYID_EXCEPTION;
@@ -89,7 +82,7 @@ public class ShopController {
         try {
             amount=activityService.getAmountJoinActivity(activityId);
         }catch (Exception e){
-            ret=new Ret(NOT_FIND_SHOP_ACTIVITY,0);
+            ret=new Ret(NOT_FIND_SHOP_ACTIVITY,ACTIVITY_ZERO);
             return ret;
         }
 
