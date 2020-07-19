@@ -51,14 +51,15 @@ public class TestController {
         return activity;
     }
 
-    @ResponseBody
-    @PostMapping("/act")
-    public Account act(@RequestBody Account account){
-        Activity r = activityRep.findByShopIdAndStatus(1L,1);
-        r.getAwards().forEach(award -> {award.setName(null);});
-        System.out.println(JSON.toJSONString(r));
-        return account;
-    }
+//    @ResponseBody
+//    @PostMapping("/act")
+//    public Account act(@RequestBody Account account){
+//        List<Activity> r = activityRep.findByShopIdAndStatus(1L,1);
+//
+//        r.getAwards().forEach(award -> {award.setName(null);});
+//        System.out.println(JSON.toJSONString(r));
+//        return account;
+//    }
 
 
 }
