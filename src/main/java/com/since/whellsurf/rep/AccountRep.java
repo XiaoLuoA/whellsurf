@@ -3,9 +3,14 @@ package com.since.whellsurf.rep;
 import com.since.whellsurf.entity.Account;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author 王英豪111
+ */
+@Repository
 public interface AccountRep extends JpaRepository<Account,Long> {
 
 
@@ -30,7 +35,7 @@ public interface AccountRep extends JpaRepository<Account,Long> {
      * @param openId 用户openId
      * @return 用户对象实体
      */
-    Account findByOpenId(String openId);
+    Account findByOpenid(String openId);
 
 }
 

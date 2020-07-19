@@ -32,7 +32,7 @@ public class WXUtil {
      */
     public static void main(String[] args) {
         String appId = "wx55cd46481d4e28d6";
-        String uri = "http://wxtest.easy.echosite.cn/wx/wx55cd46481d4e28d6/shopGreet";
+        String uri = "http://wxtest.easy.echosite.cn/wx/wx55cd46481d4e28d6/accountGreet";
         genGetUserURL(appId,uri);
         genGetBaseURL(appId,uri);
         genURL(appId,uri,Scope.USER_INFO);

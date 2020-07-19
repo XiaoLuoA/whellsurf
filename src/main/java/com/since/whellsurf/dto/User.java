@@ -1,20 +1,23 @@
 package com.since.whellsurf.dto;
 
-
 import lombok.Data;
 
 import javax.persistence.Entity;
 
-/**
- * @author wyh
- */
 
 @Data
-public class CheckAwardParameter {
+public class User {
+
+    private String openId;
+
+    private String nickname;
+
+    private String address;
 
     private String headImgUrl;
 
-    private String awardName;
+    private String gender;
 
     private Integer status;
 }
+

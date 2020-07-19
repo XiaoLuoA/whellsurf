@@ -14,7 +14,7 @@ import javax.persistence.*;
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
 
-        private String openId;
+        private String openid;
 
         private String nickname;
 

@@ -16,8 +16,8 @@ import java.util.List;
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long id;
-        @Column(name = "openid")
-        private String openId;
+
+        private String openid;
 
         private String nickname;
 

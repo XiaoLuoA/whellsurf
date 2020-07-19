@@ -40,8 +40,20 @@ public interface AccountAwardService {
     /**
      * @author wyh
      */
+    /**
+     * 添加中奖信息
+     * @param accountAward 中奖信息
+     * @return Ret
+     */
+    String addAccountAward(AccountAward accountAward);
 
-    Ret addAccountAward(AccountAward accountAward);
+
+    /**
+     * 通过openId查找中奖信息
+     * @param openId openId
+     * @return 中奖信息
+     */
+    AccountAward findByOpenId(String openId);
 
 
     /**this method aims to find AccountAward By ActivityId and status

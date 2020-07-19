@@ -15,8 +15,8 @@ public class AccountAward {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "openid")
-    private String openId;
+
+    private String openid;
 
     @Column(name = "account_id")
     private Long accountId;

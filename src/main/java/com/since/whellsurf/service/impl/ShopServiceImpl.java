@@ -25,7 +25,7 @@ public class ShopServiceImpl implements ShopService {
 
     @Override
     public Shop findByOpenId(String openId) {
-        return shopRep.findByOpenId(openId);
+        return shopRep.findByOpenid(openId);
     }
 
     @Override

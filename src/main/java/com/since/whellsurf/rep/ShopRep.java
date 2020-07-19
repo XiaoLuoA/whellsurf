@@ -4,6 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.since.whellsurf.entity.Shop;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author 王英豪111
+ */
 @Repository
 public interface ShopRep extends JpaRepository<Shop,Long> {
 
@@ -15,7 +18,7 @@ public interface ShopRep extends JpaRepository<Shop,Long> {
      * @param openId 商家用户openId
      * @return 商家信息
      */
-    Shop findByOpenId(String openId);
+    Shop findByOpenid(String openId);
 
     /**
      * @author wyh

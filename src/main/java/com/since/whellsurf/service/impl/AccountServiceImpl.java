@@ -30,6 +30,6 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account findByOpenId(String openId) {
-        return accountRep.findByOpenId(openId);
+        return accountRep.findByOpenid(openId);
     }
 }
