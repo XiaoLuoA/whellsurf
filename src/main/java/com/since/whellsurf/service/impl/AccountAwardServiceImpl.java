@@ -110,19 +110,7 @@ public class AccountAwardServiceImpl implements AccountAwardService {
 
 
 
-    /**
-     * this method aims to find AccountAward By ActivityId and status
-     *
-     * @param activityId
-     * @param status
-     * @return list of AccountAward
-     * @author jayzh
-     */
-    @Override
-    public List<AccountAward> findAccountAward(Long activityId, Integer status) {
-        List<AccountAward> accountAwards=accountAwardRep.findAllByActivityIdAndStatus(activityId,status);
-        return accountAwards;
-    }
+
 
     /**
      * this method aims to hide some information which is useless
@@ -139,6 +127,11 @@ public class AccountAwardServiceImpl implements AccountAwardService {
             ad.setAccountId(null);
         }
         return accountAwards;
+    }
+
+    @Override
+    public int findJoinActivityAmount(Long activityId) {
+        return accountAwardRep.findAllByActivityId(activityId).size();
     }
 
 }

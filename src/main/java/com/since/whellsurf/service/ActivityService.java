@@ -30,20 +30,12 @@ public interface ActivityService  {
 
     /**
      * 结束活动，修改状态
-     * @param activity 活动信息
      * @param shopId 商户id
      * @return 活动信息
      */
-    public Activity finish(Activity activity,Long shopId);
+    public Activity finish(Long shopId);
 
 
-    /**
-     * this abstract method aim to get the number of the people who participates in this activity by activity id;
-     * @param activityId
-     * @return number of people
-     * @author jayzh
-     */
-    int getAmountJoinActivity(Long activityId);
 
 
     /**

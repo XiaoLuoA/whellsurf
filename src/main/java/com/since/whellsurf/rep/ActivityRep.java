@@ -21,6 +21,9 @@ public interface ActivityRep extends JpaRepository<Activity,Long> {
 
 
     /**
+     * @author wyh
+     */
+    /**
      * 根据商品id和状态查找活动
      * @param shopId
      * @param status
@@ -31,6 +34,9 @@ public interface ActivityRep extends JpaRepository<Activity,Long> {
 
 
     /**
+     * @author wyh
+     */
+    /**
      * 根据商户id和状态查找所有活动
      * @param shopId
      * @param status
@@ -39,7 +45,16 @@ public interface ActivityRep extends JpaRepository<Activity,Long> {
     List<Activity> findAllByShopIdAndStatus(Long shopId, Integer status);
 
 
-
+    /**
+     * @author wyh
+     */
+    /**
+     * 保存或者修改活动信息
+     * @param activity
+     * @return
+     */
+    @Override
+    Activity save(Activity activity);
 
 
     /**
