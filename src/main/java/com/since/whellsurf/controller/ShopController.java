@@ -25,6 +25,7 @@ import java.util.List;
 import static com.since.whellsurf.common.Status.*;
 import static com.since.whellsurf.ret.AccountAwardResult.NOT_FIND_ACCOUNT_AWARD;
 import static com.since.whellsurf.ret.ActivityResult.ACTIVITYID_EXCEPTION;
+import static com.since.whellsurf.ret.ActivityResult.ACTIVITY_EXCEPTION;
 import static com.since.whellsurf.ret.Result.SUCCESS;
 import static com.since.whellsurf.ret.ShopResult.NOT_FIND_SHOP_ACTIVITY;
 
@@ -109,7 +110,7 @@ public class ShopController {
             return Ret.error(ACTIVITYID_EXCEPTION);
         }
         Shop shop = (Shop)request.getSession().getAttribute(SessionKey.LOGIN_SHOP);
-        Activity activity = activityService.findValidActivityByShopId(shop.getId());
+        Activity activity = activityService.findRunningActivity(shop.getId());
         if (!activity.getId().equals(activityId)){
             return Ret.error(ACTIVITY_EXCEPTION);
         }

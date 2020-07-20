@@ -1,6 +1,5 @@
 package com.since.whellsurf.service;
 
-import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.ret.Ret;
@@ -28,15 +27,6 @@ public interface ActivityService  {
    public Activity findRunningActivity(Long shopId);
 
 
-
-    /**this abstract method aims to save the activity
-     * @param activity
-     * @return Object of activity
-     * @author jayzh
-     */
-    public Activity save(Activity activity);
-
-
     /**
      * 结束活动，修改状态
      * @param activity 活动信息
@@ -44,15 +34,6 @@ public interface ActivityService  {
      * @return 活动信息
      */
     public Activity finish(Activity activity,Long shopId);
-
-
-    /**
-     * this abstract method aim to get the list of accountAward by activity id;
-     * @param activityId
-     * @return List<AccountAward>
-     *
-     */
-    List<AccountAward> getActivityAwardsById(Long activityId);
 
 
     /**
