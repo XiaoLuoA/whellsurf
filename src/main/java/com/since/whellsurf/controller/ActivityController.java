@@ -6,6 +6,7 @@ import com.since.whellsurf.common.Status;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Award;
 import com.since.whellsurf.entity.Shop;
+import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.ret.*;
 import com.since.whellsurf.service.ActivityService;
 import com.since.whellsurf.service.AwardService;
@@ -22,6 +23,8 @@ import java.util.Map;
 
 import static com.since.whellsurf.common.Status.AWARD_MAX_NUMBER;
 import static com.since.whellsurf.common.Status.PROBABILITY;
+import static com.since.whellsurf.ret.ActivityResult.ACTIVITY_NOT_FIND;
+import static com.since.whellsurf.ret.Result.SUCCESS;
 
 @Controller
 @RequestMapping("/activity")
@@ -33,6 +36,8 @@ public class ActivityController {
     AwardService awardService;
     @Autowired
     HttpServletRequest httpServletRequest;
+    @Autowired
+    ActivityRep activityRep;
 
     @RequestMapping("/addActivitty")
     @ResponseBody
@@ -94,6 +99,21 @@ public class ActivityController {
 
     }
 
+
+    @RequestMapping("/activityInfo")
+    @ResponseBody
+    public Ret activityInfo(Long  id){
+        Ret ret;
+        Activity activity=activityRep.findActivityById(id);
+        if (null==activity){
+            ret=new Ret(ACTIVITY_NOT_FIND,null);
+            return ret;
+        }
+        ret = new Ret(SUCCESS,activity);
+        return ret;
+        
+
+    }
 
 
     }
