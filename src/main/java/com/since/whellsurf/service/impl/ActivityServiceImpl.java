@@ -110,7 +110,7 @@ public class ActivityServiceImpl implements ActivityService {
             else{
                 int probability = activity.getAwards().stream()
                         .mapToInt(award->award.getProbability()).sum();
-                if (probability == PROBABILITY) {
+                if (probability == AWARD_PROBABILITY) {
                     return Ret.success();
                 } else {
                     return Ret.error(AwardResult.AWARD_PROBABILITY_WRONG);
