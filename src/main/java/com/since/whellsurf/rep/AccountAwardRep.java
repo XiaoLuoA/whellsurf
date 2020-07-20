@@ -4,9 +4,15 @@ import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * @author 王英豪111
+ */
+@Repository
 public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
     AccountAward findByActivityIdAndAccountId(Long activityId,Long AccountId);
     /**
@@ -15,9 +21,8 @@ public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
      * @param activityId 活动id
      * @return AccountAward 返回中奖表
      */
-    @Query(value = "select * from account_award where activity_id = ?1 and award_code = ?2", nativeQuery = true)
-    AccountAward findAccountAwardByCode(String code,Long activityId);
 
+    AccountAward findByAwardCodeAndActivityId(String code,Long activityId);
 
     /**
      * 保存中奖信息
@@ -40,7 +45,7 @@ public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
      * @param openId 用户openId
      * @return
      */
-    AccountAward findByOpenId(String openId);
+    AccountAward findByOpenid(String openId);
 
 
 }

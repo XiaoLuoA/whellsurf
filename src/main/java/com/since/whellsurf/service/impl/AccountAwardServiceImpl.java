@@ -2,9 +2,11 @@ package com.since.whellsurf.service.impl;
 
 import com.since.whellsurf.common.Status;
 import com.since.whellsurf.entity.AccountAward;
+import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Award;
 import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.rep.AccountAwardRep;
+import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.rep.AwardRep;
 import com.since.whellsurf.ret.AwardResult;
 import com.since.whellsurf.ret.Ret;
@@ -34,6 +36,8 @@ public class AccountAwardServiceImpl implements AccountAwardService {
     @Autowired
     private ActivityService activityService;
 
+    @Autowired
+    private ActivityRep activityRep;
 
     @Autowired
     private AwardRep awardRep;
@@ -53,45 +57,77 @@ public class AccountAwardServiceImpl implements AccountAwardService {
 
     @Override
     public AccountAward checkAccountAward(String awardCode, Long activity) {
-        return accountAwardRep.findAccountAwardByCode(awardCode,activity);
+        return accountAwardRep.findByAwardCodeAndActivityId(awardCode,activity);
     }
 
     @Override
-    public Ret addAccountAward(AccountAward accountAward) {
+    public String addAccountAward(AccountAward accountAward) {
         String awardCode = RandomUtil.genRandomCode(Status.AWARD_CODE_LENGTH);
         Double awardProbability = RandomUtil.genAwardRandom(0.01,100,2);
         List<Award> awardList = awardRep.findAllAward(accountAward.getActivityId());
-        activityService.findExitActivity(accountAward.getActivityId(),Status.ACTIVITY_VALID);
-        Shop shop = shopService.findByOpenId(accountAward.getOpenId());
+
+        Activity activity = activityRep.findByIdAndStatus(accountAward.getActivityId(),Status.ACTIVITY_VALID);
+        Shop shop = shopService.findByOpenId(accountAward.getOpenid());
         if (shop == null){
-           AccountAward accountAward1 = accountAwardRep.findByOpenId(accountAward.getOpenId());
-           if (accountAward1 != null){
-                return Ret.error(AwardResult.GET_AWARD_REPEAT);
+            //判断用户
+           AccountAward accountAward_account = accountAwardRep.findByOpenid(accountAward.getOpenid());
+           if (accountAward_account != null){
+                return "1";
            }
+           //可以抽奖
             for (Award award: awardList) {
                 if (awardProbability <= award.getProbability()){
                     accountAward.setAwardName(award.getName());
                     accountAward.setAwardId(award.getId());
                     accountAward.setStatus(Status.AWARD_VALID);
                     accountAward.setAwardCode(awardCode);
+                    accountAward.setShopId(activity.getShopId());
+                    accountAwardRep.save(accountAward);
                 }
                 awardProbability += award.getProbability();
             }
+            return awardCode;
         }else {
-            for (Award award: awardList) {
-                if (awardProbability <= award.getProbability()){
-                    //中奖
+            //商家自己的活动可以无限抽奖
+            if (activity.getShopId().equals(shop.getId())){
+                for (Award award: awardList) {
+                    if (awardProbability <= award.getProbability()){
+                      accountAward.setAwardName(award.getName());
+                      accountAward.setAwardId(award.getId());
+                      accountAward.setStatus(Status.AWARD_VALID);
+                      accountAward.setAwardCode(awardCode);
+                      accountAward.setShopId(activity.getShopId());
+                      accountAwardRep.save(accountAward);
+                    }
+                    awardProbability += award.getProbability();
                 }
-                awardProbability += award.getProbability();
+                return awardCode;
+            } else {
+                //商家抽奖别的活动只能抽一次
+                AccountAward accountAward_account = accountAwardRep.findByOpenid(accountAward.getOpenid());
+                if (accountAward_account != null){
+                    return "1";
+                }
+                for (Award award: awardList) {
+                    if (awardProbability <= award.getProbability()){
+                        accountAward.setAwardName(award.getName());
+                        accountAward.setAwardId(award.getId());
+                        accountAward.setStatus(Status.AWARD_VALID);
+                        accountAward.setAwardCode(awardCode);
+                        accountAward.setShopId(activity.getShopId());
+                        accountAwardRep.save(accountAward);
+                    }
+                    awardProbability += award.getProbability();
+                }
             }
+            return awardCode;
         }
-
-
-        accountAward.getActivityId();
-        accountAwardRep.save(accountAward);
-        return Ret.success(awardCode);
     }
 
+    @Override
+    public AccountAward findByOpenId(String openId) {
+        return accountAwardRep.findByOpenid(openId);
+    }
 
 
     /**
@@ -118,7 +154,7 @@ public class AccountAwardServiceImpl implements AccountAwardService {
     @Override
     public List<AccountAward> hideUselessInformation(List<AccountAward> accountAwards) {
         for (AccountAward ad:accountAwards) {
-            ad.setOpenId(null);
+            ad.setOpenid(null);
             ad.setActivityId(null);
             ad.setAccountId(null);
         }

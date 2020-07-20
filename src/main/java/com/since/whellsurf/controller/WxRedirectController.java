@@ -2,15 +2,19 @@ package com.since.whellsurf.controller;
 
 import com.since.whellsurf.common.SessionKey;
 import com.since.whellsurf.common.Status;
+import com.since.whellsurf.dto.User;
 import com.since.whellsurf.entity.Account;
+import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.service.AccountService;
+import com.since.whellsurf.service.ActivityService;
 import com.since.whellsurf.service.ShopService;
 import lombok.AllArgsConstructor;
 import me.chanjar.weixin.common.error.WxErrorException;
 import me.chanjar.weixin.mp.api.WxMpService;
 import me.chanjar.weixin.mp.bean.result.WxMpOAuth2AccessToken;
 import me.chanjar.weixin.mp.bean.result.WxMpUser;
+import me.chanjar.weixin.mp.enums.WxMpApiUrl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,9 +40,14 @@ public class WxRedirectController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private ActivityService activityService;
+
 
     @Autowired
     private HttpServletRequest request;
+
+
 
     @RequestMapping("/shopGreet")
     public String greetShop(@PathVariable String appid, @RequestParam String code) {
@@ -51,7 +60,7 @@ public class WxRedirectController {
             Shop shop = shopService.findByOpenId(user.getOpenId());
             if (shop == null){
                  //不是商家没有权限，添加到数据库（状态为未激活）
-                shop.setOpenId(user.getOpenId());
+                shop.setOpenid(user.getOpenId());
                 shop.setNickname(user.getNickname());
                 shop.setAddress(user.getCountry() + user.getProvince() + user.getCity());
                 shop.setHeadImgUrl(user.getHeadImgUrl());
@@ -78,24 +87,47 @@ public class WxRedirectController {
         try {
             WxMpOAuth2AccessToken accessToken = wxService.oauth2getAccessToken(code);
             WxMpUser user = wxService.oauth2getUserInfo(accessToken, null);
+
             Shop shop = shopService.findByOpenId(user.getOpenId());
-            if (shop == null){
+            Long activityId = Long.valueOf(request.getParameter("activity"));
+            Activity activity = activityService.findByActivityIdAndStatus(activityId,Status.ACTIVITY_VALID);
+            if (shop != null){
+                //数据库存在商家信息
+                if (shop.getId().equals(activity.getShopId())){
+                    //活动属于商家
+                    request.getSession().setAttribute(SessionKey.LOGIN_SHOP,shop);
+                }else {
+                    //但此活动不属于商家，将商家作为用户存进数据库
+                    Account account = new Account();
+                    account.setOpenid(shop.getOpenid());
+                    account.setNickname(shop.getNickname());
+                    account.setAddress(shop.getAddress());
+                    account.setHeadImgUrl(shop.getHeadImgUrl());
+                    account.setGender(shop.getGender());
+                    account.setStatus(Status.ACCOUNT_EXIST);
+                    Account account1 = accountService.addAccount(account);
+                    request.getSession().setAttribute(SessionKey.LOGIN_USER,account1);
+                }
+
+            }
+              //判断用户是否存在
                 Account account = accountService.findByOpenId(user.getOpenId());
                 if (account == null){
-                    account.setOpenId(user.getOpenId());
-                    account.setNickname(user.getNickname());
-                    account.setAddress(user.getCountry() + user.getProvince() + user.getCity());
-                    account.setHeadImgUrl(user.getHeadImgUrl());
-                    account.setGender(user.getSexDesc());
-                    account.setStatus(Status.ACCOUNT_EXIST);
-                    accountService.addAccount(account);
-                }
-                request.getSession().setAttribute(SessionKey.LOGIN_USER,account);
-            } else  {
-                request.getSession().setAttribute(SessionKey.LOGIN_SHOP,shop);
-            }
+                    Account account1 = new Account();
+                    account1.setOpenid(user.getOpenId());
+                    account1.setNickname(user.getNickname());
+                    account1.setAddress(user.getCountry() + user.getProvince() + user.getCity());
+                    account1.setHeadImgUrl(user.getHeadImgUrl());
+                    account1.setGender(user.getSexDesc());
+                    account1.setStatus(Status.ACCOUNT_EXIST);
+                    Account accountNew = accountService.addAccount(account1);
+                    request.getSession().setAttribute(SessionKey.LOGIN_USER,accountNew);
 
-            return "redirect:/to/index";
+                } else {
+                    request.getSession().setAttribute(SessionKey.LOGIN_USER,account);
+                }
+
+            return "redirect:/to/index?activity="+activityId;
         } catch (WxErrorException e) {
             e.printStackTrace();
         }

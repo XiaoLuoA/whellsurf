@@ -1,6 +1,7 @@
 package com.since.whellsurf.controller;
 
 import com.since.whellsurf.common.SessionKey;
+import com.since.whellsurf.common.Status;
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
@@ -17,6 +18,7 @@ import com.since.whellsurf.service.ShopService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -169,11 +171,21 @@ public class ShopController {
 
 
     @RequestMapping("/check")
-    public Ret checkAccountAward(String awardCode){
+    public Ret checkAccountAward(@RequestParam String awardCode){
+        System.out.println(awardCode);
         if (awardCode == null || "".equals(awardCode)){
             return Ret.error(AwardResult.AWARD_CODE_NOT_FOUND);
         }
-        Shop shop = (Shop)httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_SHOP);
+        /*
+        Shop shop = (Shop)httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_SHOP);*/
+        Shop shop = new Shop();
+        shop.setId(1L);
+        shop.setOpenid("111111");
+        shop.setNickname("老党");
+        shop.setAddress("郑州");
+        shop.setHeadImgUrl("wwwwwwww");
+        shop.setGender("男");
+        shop.setStatus(Status.ACCOUNT_EXIST);
         Activity activity = activityService.findValidActivityByShopId(shop.getId());
         AccountAward accountAward = accountAwardService.checkAccountAward(awardCode,activity.getId());
         if (accountAward == null){
@@ -183,6 +195,7 @@ public class ShopController {
         cap.setAwardName(accountAward.getAwardName());
         cap.setHeadImgUrl(accountAward.getHeadImgUrl());
         cap.setStatus(accountAward.getStatus());
+        System.out.println(cap);
         return Ret.success(cap);
     }
 

@@ -1,12 +1,15 @@
 package com.since.whellsurf.controller;
 
+import com.since.whellsurf.common.SessionKey;
+import com.since.whellsurf.entity.Account;
+import org.hibernate.Session;
+
+import javax.servlet.http.HttpServletRequest;
+
 public class test {
     public static void main(String[] args) {
-        double min = 0.01;
-        double max = 100;
-        int maxDigit = 2;
-        int pow = (int) Math.pow(10,maxDigit);
-        double one = Math.floor((Math.random() * (max - min) + min) * pow) / pow;
-        System.out.println(one);
+        HttpServletRequest request = null;
+        Account account2 = (Account) request.getSession().getAttribute(SessionKey.LOGIN_USER);
+        System.out.println("account2"+account2);
     }
 }

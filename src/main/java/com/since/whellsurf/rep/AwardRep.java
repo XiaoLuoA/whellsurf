@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author 王英豪111
+ */
 @Repository
 public interface AwardRep extends JpaRepository<Award,Long> {
 
