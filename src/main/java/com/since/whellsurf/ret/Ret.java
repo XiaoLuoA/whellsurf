@@ -21,6 +21,10 @@ public class Ret {
         return new Ret(Result.SUCCESS).setOk(true);
     }
 
+    public static Ret error(){
+        return new Ret().setOk(false);
+    }
+
     public static Ret error(Code code){
         return new Ret(code).setOk(false);
     }

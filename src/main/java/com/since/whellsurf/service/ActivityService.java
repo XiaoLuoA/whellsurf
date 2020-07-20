@@ -18,6 +18,7 @@ public interface ActivityService  {
      */
     Activity insertActivity(Activity activity, Long shopId);
 
+    Activity findById(Long id);
 
 
     /**this abstract method aims to find the activity which has not been closed

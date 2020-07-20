@@ -6,11 +6,7 @@ import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.ret.AwardResult;
-import com.since.whellsurf.ret.Result;
-import com.since.whellsurf.entity.AccountAward;
-import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.dto.CheckAwardParameter;
-import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.ret.Ret;
 import com.since.whellsurf.service.AccountAwardService;
 import com.since.whellsurf.service.ActivityService;
@@ -47,7 +43,6 @@ public class ShopController {
 
     @Autowired
     HttpServletRequest request;
-
 
 
     /**
@@ -163,15 +158,7 @@ public class ShopController {
         if (awardCode == null || "".equals(awardCode)){
             return Ret.error(AwardResult.AWARD_CODE_NOT_FOUND);
         }
-        /*
-        Shop shop = (Shop)httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_SHOP);*/
-        Shop shop = new Shop();
-        shop.setId(1L);
-        shop.setOpenid("111111");
-        shop.setNickname("老党");
-        shop.setAddress("郑州");
-        shop.setHeadImgUrl("wwwwwwww");
-        shop.setGender("男");
+        Shop shop = (Shop)request.getSession().getAttribute(SessionKey.LOGIN_SHOP);
         shop.setStatus(Status.ACCOUNT_EXIST);
         Activity activity = activityService.findRunningActivity(shop.getId());
         AccountAward accountAward = accountAwardService.checkAccountAward(awardCode,activity.getId());
