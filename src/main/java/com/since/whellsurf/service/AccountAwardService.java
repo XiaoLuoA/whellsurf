@@ -38,7 +38,7 @@ public interface AccountAwardService {
     AccountAward checkAccountAward(String awardCode,Long activityId);
 
 
-    Award addAccountAward(Long activityId, Account account);
+    Award getPrizeAndSave(Long activityId, Account account, Long shopId);
 
     /**
      * 通过openId查找中奖信息
@@ -82,11 +82,9 @@ public interface AccountAwardService {
      */
     public List<AccountAward> hideUselessInformation(List<AccountAward> accountAwards);
 
+    AccountAward findByActivityIdAndAccountId(Long activityId, Long AccountId);
+
     Award getPrize(Long activityId);
-
-
-
-
 
     /**
      * 查找参加活动的人数

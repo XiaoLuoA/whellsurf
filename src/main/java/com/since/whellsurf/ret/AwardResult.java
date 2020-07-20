@@ -10,4 +10,6 @@ public interface AwardResult extends  Result{
     Code REDEEM_FAIL = new Code("900_406","兑奖失败，不能重复兑奖!");
     Code AWARD_PROBABILITY_WRONG = new Code("700_401","奖品概率设置不为100%");
     Code AWARD_NUMBER_EXCEED = new Code ("700_402","商品数量设置超过10");
+    Code AWARD_UNKNOW_EXCEPTION = new Code("700_403","抽奖时遇到未知异常");
+
 }

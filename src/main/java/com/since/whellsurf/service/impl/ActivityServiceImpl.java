@@ -34,12 +34,12 @@ public class ActivityServiceImpl implements ActivityService {
     AwardRep awardRep;
 
     @Autowired
-    AccountAwardRep accountAwardRep;
+    AccountAwardService accountAwardService;
 
-    @Override
-    public AccountAward findByActivityIdAndAccountId(Long activityId, Long AccountId) {
-        return accountAwardRep.findByActivityIdAndAccountId(activityId,AccountId);
-    }
+    @Autowired
+    AccountService accountService;
+
+
 
     /**
      * @author drj
@@ -118,14 +118,6 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
 
-    @Autowired
-    AccountAwardService accountAwardService;
-
-    @Autowired
-    AccountService accountService;
-
-
-
     private Account shopToAccount(Shop shop){
         Account account = new Account();
         account.setAddress(shop.getAddress());
@@ -147,31 +139,29 @@ public class ActivityServiceImpl implements ActivityService {
             Account account = accountService.findByOpenId(shop.getOpenid());
             if (account==null){
                 account = shopToAccount(shop);
+                account = accountService.save(account);
             }
-            return userGetPrize(activityId,account);
+            return userGetPrize(activityId, account);
         }
     }
 
 
     @Override
     public Ret userGetPrize(Long activityId, Account account) {
-        //先判断用户
-        AccountAward accountAward = findByActivityIdAndAccountId(activityId,account.getId());
+        AccountAward accountAward = accountAwardService.findByActivityIdAndAccountId(activityId,account.getId());
         if (accountAward != null){
             return Ret.error(AwardResult.GET_AWARD_REPEAT);
         }else {
-            Award award = accountAwardService.addAccountAward(activityId,account);
+            Long shopId = activityRep.findById(activityId).get().getShopId();
+            Award award = accountAwardService.getPrizeAndSave(activityId,account,shopId);
             return Ret.success(award);
         }
     }
-
 
 
     @Override
     public Activity findByActivityIdAndStatus(Long activityId, Integer status) {
         return activityRep.findByIdAndStatus(activityId, status);
     }
-
-
 
 }
