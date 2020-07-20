@@ -113,8 +113,10 @@ public class ShopController {
         if (userId == null || activityId == null){
             return Ret.error(ACTIVITYID_EXCEPTION);
         }
-        Shop shop = (Shop)request.getSession().getAttribute(SessionKey.LOGIN_SHOP);
-        Activity activity = activityService.findRunningActivity(shop.getId());
+
+       /* Shop shop = (Shop)request.getSession().getAttribute(SessionKey.LOGIN_SHOP);*/
+
+        Activity activity = activityService.findRunningActivity(1L);
         if (!activity.getId().equals(activityId)){
             return Ret.error(ACTIVITY_EXCEPTION);
         }

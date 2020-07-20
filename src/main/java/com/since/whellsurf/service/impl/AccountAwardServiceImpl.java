@@ -77,6 +77,11 @@ public class AccountAwardServiceImpl implements AccountAwardService {
     }
 
     @Override
+    public AccountAward findByActivityIdAndAccountId(Long activityId, Long accountId) {
+        return accountAwardRep.findByActivityIdAndAccountId(activityId, accountId);
+    }
+
+    @Override
     public Award addAccountAward(Long activityId, Account account) {
             Award ret = getPrize(activityId);
             AccountAward accountAward1 = new AccountAward();

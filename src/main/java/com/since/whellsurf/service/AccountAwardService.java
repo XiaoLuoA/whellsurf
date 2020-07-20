@@ -38,6 +38,12 @@ public interface AccountAwardService {
     AccountAward checkAccountAward(String awardCode,Long activityId);
 
 
+    /**
+     * 添加中奖信息
+     * @param activityId 活动id
+     * @param account 用户
+     * @return
+     */
     Award addAccountAward(Long activityId, Account account);
 
     /**
@@ -85,6 +91,18 @@ public interface AccountAwardService {
     Award getPrize(Long activityId);
 
 
+
+
+    /**
+     * @author wyh
+     */
+    /**
+     * 通过用户id和活动id查找中奖信息
+     * @param activityId 活动id
+     * @param accountId 用户id
+     * @return 中奖信息
+     */
+    AccountAward findByActivityIdAndAccountId(Long activityId,Long accountId);
 
 
 
