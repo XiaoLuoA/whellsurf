@@ -128,7 +128,6 @@ public class AccountAwardServiceImpl implements AccountAwardService {
         for (AccountAward ad:accountAwards) {
             ad.setOpenid(null);
             ad.setActivityId(null);
-            ad.setAccountId(null);
         }
         return accountAwards;
     }
