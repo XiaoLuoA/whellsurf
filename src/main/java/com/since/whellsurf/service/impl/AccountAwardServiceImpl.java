@@ -1,18 +1,12 @@
 package com.since.whellsurf.service.impl;
 
 import com.since.whellsurf.common.Status;
-import com.since.whellsurf.entity.AccountAward;
-import com.since.whellsurf.entity.Activity;
-import com.since.whellsurf.entity.Award;
-import com.since.whellsurf.entity.Shop;
+import com.since.whellsurf.entity.*;
 import com.since.whellsurf.rep.AccountAwardRep;
 import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.rep.AwardRep;
-import com.since.whellsurf.ret.AwardResult;
-import com.since.whellsurf.ret.Ret;
 import com.since.whellsurf.service.AccountAwardService;
 import com.since.whellsurf.service.ActivityService;
-import com.since.whellsurf.service.AwardService;
 import com.since.whellsurf.service.ShopService;
 import com.since.whellsurf.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,67 +55,42 @@ public class AccountAwardServiceImpl implements AccountAwardService {
     }
 
     @Override
-    public String addAccountAward(AccountAward accountAward) {
+    public Award getPrize(Long activityId){
         String awardCode = RandomUtil.genRandomCode(Status.AWARD_CODE_LENGTH);
-        Double awardProbability = RandomUtil.genAwardRandom(0.01,100,2);
-        List<Award> awardList = awardRep.findAllAward(accountAward.getActivityId());
-
-        Activity activity = activityRep.findByIdAndStatus(accountAward.getActivityId(),Status.ACTIVITY_VALID);
-        Shop shop = shopService.findByOpenId(accountAward.getOpenid());
-        if (shop == null){
-            //判断用户
-           AccountAward accountAward_account = accountAwardRep.findByOpenid(accountAward.getOpenid());
-           if (accountAward_account != null){
-                return "1";
-           }
-           //可以抽奖
-            for (Award award: awardList) {
-                if (awardProbability <= award.getProbability()){
-                    accountAward.setAwardName(award.getName());
-                    accountAward.setAwardId(award.getId());
-                    accountAward.setStatus(Status.AWARD_VALID);
-                    accountAward.setAwardCode(awardCode);
-                    accountAward.setShopId(activity.getShopId());
-                    accountAwardRep.save(accountAward);
-                }
-                awardProbability += award.getProbability();
+        double awardProbability = RandomUtil.genAwardRandom();
+        List<Award> awardList = awardRep.findAllSortAward(activityId);
+        int tmp = 0;
+        Award ret = null;
+        for (Award award:awardList){
+            tmp += award.getProbability();
+            if (tmp>=awardProbability){
+                ret = award;
             }
-            return awardCode;
-        }else {
-            //商家自己的活动可以无限抽奖
-            if (activity.getShopId().equals(shop.getId())){
-                for (Award award: awardList) {
-                    if (awardProbability <= award.getProbability()){
-                      accountAward.setAwardName(award.getName());
-                      accountAward.setAwardId(award.getId());
-                      accountAward.setStatus(Status.AWARD_VALID);
-                      accountAward.setAwardCode(awardCode);
-                      accountAward.setShopId(activity.getShopId());
-                      accountAwardRep.save(accountAward);
-                    }
-                    awardProbability += award.getProbability();
-                }
-                return awardCode;
-            } else {
-                //商家抽奖别的活动只能抽一次
-                AccountAward accountAward_account = accountAwardRep.findByOpenid(accountAward.getOpenid());
-                if (accountAward_account != null){
-                    return "1";
-                }
-                for (Award award: awardList) {
-                    if (awardProbability <= award.getProbability()){
-                        accountAward.setAwardName(award.getName());
-                        accountAward.setAwardId(award.getId());
-                        accountAward.setStatus(Status.AWARD_VALID);
-                        accountAward.setAwardCode(awardCode);
-                        accountAward.setShopId(activity.getShopId());
-                        accountAwardRep.save(accountAward);
-                    }
-                    awardProbability += award.getProbability();
-                }
-            }
-            return awardCode;
         }
+
+        if (ret==null){
+            return  null;
+        }else {
+            ret.setAwardCode(awardCode);
+            return ret;
+        }
+    }
+
+    @Override
+    public Award addAccountAward(Long activityId, Account account) {
+            Award ret = getPrize(activityId);
+            AccountAward accountAward1 = new AccountAward();
+            accountAward1.setOpenid(account.getOpenid());
+            accountAward1.setAccountId(account.getId());
+            accountAward1.setHeadImgUrl(account.getHeadImgUrl());
+            accountAward1.setActivityId(activityId);
+            accountAward1.setAwardId(ret.getId());
+            accountAward1.setAwardName(ret.getName());
+            accountAward1.setAwardCode(ret.getAwardCode());
+            accountAward1.setStatus(Status.ACCOUNT_AWARD_NOT_REDEEM);
+            accountAwardRep.save(accountAward1);
+            return ret;
+
     }
 
     @Override

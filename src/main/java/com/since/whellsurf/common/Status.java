@@ -6,10 +6,12 @@ package com.since.whellsurf.common;
 public interface Status {
 
     Integer ACCOUNT_EXIST = 1;
+    Integer ACCOUNT_NORMAL = 1;
+
     Integer ACTIVITY_VALID = 1;
     Integer ACTIVITY_INVALID = 2;
     Integer ACTIVITY_RUNNING = 1;
-    Integer AWARD_CODE_LENGTH = 10;
+    Integer AWARD_CODE_LENGTH = 4;
     Integer AWARD_VALID = 1;
 
     Integer SHOP_NOT_ACTIVATE = 2;
@@ -18,13 +20,11 @@ public interface Status {
     Integer REDEEM_STATUS_ALREADY =2;
     Integer REDEEM_STATUS_NOT=1;
 
-    Integer ACTIVITY_YET_EXIT=1;
-    Integer ACTIVITY_NOT_EXIT=2;
-    Integer ACTIVITY_EXIT_INDEX=0;
     Integer ACTIVITY_END=2;
-    Integer ACTIVITY_ZERO=0;
     Integer PROBABILITY=100;
     Integer AWARD_MAX_NUMBER=10;
     Integer AWARD_NORMAL =1;
-    Integer ACTIVITGY_INSERT=1;
+
+
+    Integer ACCOUNT_AWARD_NOT_REDEEM = 1;
 }

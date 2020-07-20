@@ -1,4 +1,5 @@
 package com.since.whellsurf.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
@@ -16,12 +17,20 @@ public class Award {
 
     private String name;
 
+    @JsonIgnore
     private int probability;
 
+    @JsonIgnore
     private Integer status;
 
     @Column(name = "activity_id")
     private Long activityId;
+
+
+    @Transient
+    String awardCode;
+
+
 
 //    @ManyToOne
 //    @JoinColumn(name = "activity_id")

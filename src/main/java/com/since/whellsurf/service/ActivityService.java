@@ -1,13 +1,14 @@
 package com.since.whellsurf.service;
 
+import com.since.whellsurf.entity.Account;
+import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.ret.Ret;
 
-
-import java.util.List;
-
 public interface ActivityService  {
+
+    AccountAward findByActivityIdAndAccountId(Long activityId, Long AccountId);
 
     /**
      * @author drj
@@ -45,8 +46,6 @@ public interface ActivityService  {
     int getAmountJoinActivity(Long activityId);
 
 
-
-
     /**
      * @author wyh
      */
@@ -66,5 +65,11 @@ public interface ActivityService  {
      * @author luoxinyuan
      */
     Ret canCreateActivity(Shop shop, Activity activity);
+
+
+    Ret shopGetPrize(Long activityId, Shop shop);
+
+    Ret userGetPrize(Long activityId, Account account);
+
 
 }

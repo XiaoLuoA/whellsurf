@@ -31,7 +31,7 @@ public interface ActivityRep extends JpaRepository<Activity,Long> {
 
 
     /**
-     * 根据商品id和状态查找所有活动
+     * 根据商户id和状态查找所有活动
      * @param shopId
      * @param status
      * @return 活动集合

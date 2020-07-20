@@ -1,8 +1,9 @@
 package com.since.whellsurf.service;
 
 
+import com.since.whellsurf.entity.Account;
 import com.since.whellsurf.entity.AccountAward;
-import com.since.whellsurf.ret.Ret;
+import com.since.whellsurf.entity.Award;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -37,16 +38,7 @@ public interface AccountAwardService {
     AccountAward checkAccountAward(String awardCode,Long activityId);
 
 
-    /**
-     * @author wyh
-     */
-    /**
-     * 添加中奖信息
-     * @param accountAward 中奖信息
-     * @return Ret
-     */
-    String addAccountAward(AccountAward accountAward);
-
+    Award addAccountAward(Long activityId, Account account);
 
     /**
      * 通过openId查找中奖信息
@@ -98,5 +90,6 @@ public interface AccountAwardService {
      */
     public List<AccountAward> hideUselessInformation(List<AccountAward> accountAwards);
 
+    Award getPrize(Long activityId);
 
     }

@@ -4,19 +4,20 @@ package com.since.whellsurf.service.impl;
 import com.since.whellsurf.common.Config;
 import com.since.whellsurf.entity.*;
 import com.since.whellsurf.entity.Activity;
+import com.since.whellsurf.rep.AccountAwardRep;
 import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.rep.AwardRep;
 import com.since.whellsurf.ret.ActivityResult;
 import com.since.whellsurf.ret.AwardResult;
 import com.since.whellsurf.ret.Ret;
+import com.since.whellsurf.service.AccountAwardService;
+import com.since.whellsurf.service.AccountService;
 import com.since.whellsurf.service.ActivityService;
 import com.since.whellsurf.util.WXUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-
-import java.util.List;
 
 import static com.since.whellsurf.common.Status.*;
 
@@ -31,6 +32,14 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Autowired
     AwardRep awardRep;
+
+    @Autowired
+    AccountAwardRep accountAwardRep;
+
+    @Override
+    public AccountAward findByActivityIdAndAccountId(Long activityId, Long AccountId) {
+        return accountAwardRep.findByActivityIdAndAccountId(activityId,AccountId);
+    }
 
     /**
      * @author drj
@@ -101,7 +110,6 @@ public class ActivityServiceImpl implements ActivityService {
             else{
                 int probability = activity.getAwards().stream()
                         .mapToInt(award->award.getProbability()).sum();
-                //判断参数合法性
                 if (probability == PROBABILITY) {
                     return Ret.success();
                 } else {
@@ -111,6 +119,56 @@ public class ActivityServiceImpl implements ActivityService {
         }
         return Ret.error(ActivityResult.ACTIVITY_IS_RUNNING);
     }
+
+
+    @Autowired
+    AccountAwardService accountAwardService;
+
+    @Autowired
+    AccountService accountService;
+
+
+
+    private Account shopToAccount(Shop shop){
+        Account account = new Account();
+        account.setAddress(shop.getAddress());
+        account.setGender(shop.getGender());
+        account.setHeadImgUrl(shop.getHeadImgUrl());
+        account.setNickname(shop.getNickname());
+        account.setOpenid(shop.getOpenid());
+        account.setStatus(ACCOUNT_NORMAL);
+        return account;
+    }
+
+    @Override
+    public Ret shopGetPrize(Long activityId, Shop shop) {
+        Activity activity = findRunningActivity(shop.getId());
+        if (activity.getId().equals(activityId)){
+            Award award = accountAwardService.getPrize(activityId);
+            return Ret.success(award);
+        }else{
+            Account account = accountService.findByOpenId(shop.getOpenid());
+            if (account==null){
+                account = shopToAccount(shop);
+            }
+            return userGetPrize(activityId,account);
+        }
+    }
+
+
+    @Override
+    public Ret userGetPrize(Long activityId, Account account) {
+        //先判断用户
+        AccountAward accountAward = findByActivityIdAndAccountId(activityId,account.getId());
+        if (accountAward != null){
+            return Ret.error(AwardResult.GET_AWARD_REPEAT);
+        }else {
+            Award award = accountAwardService.addAccountAward(activityId,account);
+            return Ret.success(award);
+        }
+    }
+
+
 
     @Override
     public Activity findByActivityIdAndStatus(Long activityId, Integer status) {

@@ -19,5 +19,5 @@ public interface AwardRep extends JpaRepository<Award,Long> {
      * @return
      */
     @Query(value = "select * from award where activity_id = ?1 order by probability asc",nativeQuery = true)
-    List<Award> findAllAward(Long activityId);
+    List<Award> findAllSortAward(Long activityId);
 }

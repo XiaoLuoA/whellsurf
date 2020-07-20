@@ -14,6 +14,8 @@ public interface Config {
 
     String SHOP_NO_PERMISSION_REDIRECT = "";
 
+    String USER_NO_PERMISSION_REDIRECT = "";
+
     /**
      * 必须正常状态商户才能访问的URL
      */

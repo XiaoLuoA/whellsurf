@@ -33,13 +33,13 @@ public class ActivityController {
         if (shop == null){
             return Ret.noPermission(Config.SHOP_NO_PERMISSION_REDIRECT);
         }
-            Ret ret = activityService.canCreateActivity(shop,activity);
-            if (ret.isOk()){
-                Activity act = activityService.insertActivity(activity,shop.getId());
-                return Ret.success(act.getImage());
-            } else{
-                return Ret.error(ActivityResult.ACTIVITY_IS_RUNNING);
-            }
+        Ret ret = activityService.canCreateActivity(shop,activity);
+        if (ret.isOk()){
+            Activity act = activityService.insertActivity(activity,shop.getId());
+            return Ret.success(act.getImage());
+        } else{
+            return Ret.error(ActivityResult.ACTIVITY_IS_RUNNING);
+        }
     }
 
 
