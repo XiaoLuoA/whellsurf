@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 /**
  * @author wyh
  */
-
 @Data
 public class CheckAwardParameter {
 

@@ -1,11 +1,13 @@
 package com.since.whellsurf.entity;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 
 @Entity
 @Data
 @Table(name = "award")
+@ToString
 public class Award {
 
     @Id

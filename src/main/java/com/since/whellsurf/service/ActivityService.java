@@ -51,7 +51,7 @@ public interface ActivityService  {
      * @return List<AccountAward>
      *
      */
-    public List<AccountAward> getActivityAwardsById(Long activityId);
+    List<AccountAward> getActivityAwardsById(Long activityId);
 
 
     /**
@@ -60,7 +60,7 @@ public interface ActivityService  {
      * @return number of people
      * @author jayzh
      */
-    public int getAmountJoinActivity(Long activityId);
+    int getAmountJoinActivity(Long activityId);
 
 
 
