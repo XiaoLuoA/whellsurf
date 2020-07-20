@@ -9,4 +9,5 @@ public interface ActivityResult extends Result{
     Code ACTIVITY_EXCEPTION = new Code("500_407","此活动与商家活动不匹配");
     Code ACTIVITY_INSERT_FAIL = new Code("500_404","插入失败");
     Code ACTIVITY_NOT_FIND = new Code("500_405","活动不存在");
+    Code FINISH_ACTIVITY_FAIL = new Code("500_408","结束活动失败！");
 }

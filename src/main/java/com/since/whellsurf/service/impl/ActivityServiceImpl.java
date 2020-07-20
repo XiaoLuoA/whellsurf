@@ -71,18 +71,15 @@ public class ActivityServiceImpl implements ActivityService {
 
 
 
-
-
     /**this method aims to end the activity
-     * @param activity
      * @return Object of activity
      * @author jayzh
      */
     @Override
-    public Activity finish(Activity activity,Long shopId) {
+    public Activity finish(Long shopId) {
+        Activity activity = activityRep.findByShopIdAndStatus(shopId,ACTIVITY_VALID);
         activity.setStatus(ACTIVITY_END);
-        activity=activityRep.save(activity);
-        return activity;
+        return activityRep.save(activity);
     }
 
     /**
@@ -117,14 +114,6 @@ public class ActivityServiceImpl implements ActivityService {
         return activityRep.findByIdAndStatus(activityId, status);
     }
 
-    /**
-     * this method aim to get the number of the people who participates in this activity by activity id;
-     * @param activityId
-     * @return number of people
-     */
-    @Override
-    public int getAmountJoinActivity(Long activityId) {
-        return  activityRep.findById(activityId).get().getAccountAwards().size();
-    }
+
 
 }
