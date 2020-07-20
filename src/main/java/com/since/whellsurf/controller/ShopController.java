@@ -2,15 +2,14 @@ package com.since.whellsurf.controller;
 
 import com.since.whellsurf.common.SessionKey;
 import com.since.whellsurf.common.Status;
+import com.since.whellsurf.entity.Account;
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
+import com.since.whellsurf.ret.AccountResult;
+import com.since.whellsurf.ret.ActivityResult;
 import com.since.whellsurf.ret.AwardResult;
-import com.since.whellsurf.ret.Result;
-import com.since.whellsurf.entity.AccountAward;
-import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.dto.CheckAwardParameter;
-import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.ret.Ret;
 import com.since.whellsurf.service.AccountAwardService;
 import com.since.whellsurf.service.ActivityService;
@@ -46,9 +45,43 @@ public class ShopController {
     ShopService shopService;
 
     @Autowired
-    HttpServletRequest httpServletRequest;
+    HttpServletRequest request;
 
 
+
+    @RequestMapping("/checkDrawPrize")
+    @ResponseBody
+    public Ret CheckDrawPrize(@RequestParam String activityId){
+        Long acId = Long.valueOf(activityId);
+        //判断活动是否有效
+        Activity activity = activityService.findByActivityIdAndStatus(acId, Status.ACTIVITY_VALID);
+        if (activity == null){
+            return Ret.error(ActivityResult.ACTIVITY_IS_OUTDATED);
+        }
+
+        Account account = (Account)request.getSession().getAttribute(SessionKey.LOGIN_USER);
+        Shop shop = (Shop) request.getSession().getAttribute(SessionKey.LOGIN_SHOP);
+        if (account == null || shop == null){
+            return Ret.error(AccountResult.ACCOUNT_NOT_LOGIN);
+        }
+        //先根据用户的openid得到中奖信息
+        AccountAward accountAward = accountAwardService.findByOpenId(account.getOpenid());
+        if (accountAward != null){
+            //存在中奖信息
+            return Ret.error(AwardResult.GET_AWARD_REPEAT);
+        }
+        Activity shopActivity = activityService.findRunningActivity(shop.getId());
+        //如果商家的活动id和此活动id不匹配，说明商家作为一个用户抽别的商家的奖
+        if (!shopActivity.getId().equals(activityId) ){
+            //检查中奖表中是否存在商家中奖别的活动的信息
+            AccountAward accountAward_shop = accountAwardService.findByOpenId(account.getOpenid());
+            if (accountAward_shop != null){
+                return Ret.error(AwardResult.GET_AWARD_REPEAT);
+            }
+        }
+        return Ret.success("可以抽奖");
+    }
+    }
 
     /**
      * @author jayzh
@@ -103,11 +136,11 @@ public class ShopController {
     @RequestMapping("/finish")
     @ResponseBody
     public Ret finish(){
-        Shop shop=(Shop)httpServletRequest.getSession().getAttribute("shoper");
+        Shop shop=(Shop)request.getSession().getAttribute("shoper");
         Activity activity = null;
         Ret ret;
         try {
-            activity=activityService.findExitActivity(shop.getId(),ACTIVITY_YET_EXIT);
+            activity=activityService.findRunningActivity(shop.getId(),ACTIVITY_YET_EXIT);
             activity=activityService.finish(activity);
         }catch (Exception e){
             ret=new Ret(NOT_FIND_SHOP_ACTIVITY, null);
@@ -186,7 +219,7 @@ public class ShopController {
         shop.setHeadImgUrl("wwwwwwww");
         shop.setGender("男");
         shop.setStatus(Status.ACCOUNT_EXIST);
-        Activity activity = activityService.findValidActivityByShopId(shop.getId());
+        Activity activity = activityService.findRunningActivity(shop.getId());
         AccountAward accountAward = accountAwardService.checkAccountAward(awardCode,activity.getId());
         if (accountAward == null){
             return Ret.error(AwardResult.AWARD_CODE_NOT_FOUND);

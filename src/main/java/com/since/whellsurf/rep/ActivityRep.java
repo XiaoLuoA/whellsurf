@@ -26,7 +26,7 @@ public interface ActivityRep extends JpaRepository<Activity,Long> {
      * @return list of Activity
      * @author jayzh
      */
-    public List<Activity> findByShopIdAndStatus(Long shopId, Integer status);
+    Activity findByShopIdAndStatus(Long shopId, Integer status);
 
 
 

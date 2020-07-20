@@ -1,5 +1,6 @@
 package com.since.whellsurf.controller;
 
+import com.since.whellsurf.common.Config;
 import com.since.whellsurf.common.SessionKey;
 import com.since.whellsurf.common.Status;
 import com.since.whellsurf.dto.User;
@@ -29,7 +30,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @AllArgsConstructor
 @Controller
-@RequestMapping("/wx/{appid}")
+@RequestMapping("/wx")
 public class WxRedirectController {
     private final WxMpService wxService;
 
@@ -50,7 +51,8 @@ public class WxRedirectController {
 
 
     @RequestMapping("/shopGreet")
-    public String greetShop(@PathVariable String appid, @RequestParam String code) {
+    public String greetShop(@RequestParam String code) {
+        String appid = Config.appId;
         if (!this.wxService.switchover(appid)) {
             throw new IllegalArgumentException(String.format("未找到对应appid=[%s]的配置，请核实！", appid));
         }
