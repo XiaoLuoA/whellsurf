@@ -1,21 +1,22 @@
 package com.since.whellsurf.service.impl;
 
 
-import com.since.whellsurf.common.Config;
-import com.since.whellsurf.entity.*;
 import com.since.whellsurf.entity.Activity;
+import com.since.whellsurf.common.SessionKey;
+import com.since.whellsurf.common.Status;
+import com.since.whellsurf.entity.Activity;
+import com.since.whellsurf.entity.AccountAward;
+import com.since.whellsurf.entity.Activity;
+import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.rep.ActivityRep;
-import com.since.whellsurf.rep.AwardRep;
-import com.since.whellsurf.ret.ActivityResult;
-import com.since.whellsurf.ret.AwardResult;
-import com.since.whellsurf.ret.Ret;
+import com.since.whellsurf.rep.ShopRep;
 import com.since.whellsurf.service.ActivityService;
-import com.since.whellsurf.util.WXUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 import static com.since.whellsurf.common.Status.*;
@@ -28,12 +29,16 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Autowired
     ActivityRep activityRep;
-
     @Autowired
-    AwardRep awardRep;
+    HttpServletRequest httpServletRequest;
 
-//    @Autowired
-//    HttpServletRequest httpServletRequest;
+
+    /**
+     * @author drj
+     * 创建活动  todo: 1.userIsShop 2.isActivity 3.判断参数合法性 4.Insert 两个表
+     */
+
+
 
     /**
      * @author drj
@@ -43,20 +48,17 @@ public class ActivityServiceImpl implements ActivityService {
      */
     @Transactional
     @Override
-    public Activity insertActivity(Activity activity, Long id) {
-        activity.setShopId(id);
-        activity.setStatus(ACTIVITY_RUNNING);
-        Activity saveActivity = activityRep.save(activity);
-        String wxUrl= WXUtil.genGetUserURL(Config.appId, Config.HOST+Config.ACTIVITY_INDEX+"?activityId="+saveActivity.getId());
-        saveActivity.setImage(wxUrl);
-        activity.getAwards().forEach(
-                award -> {
-                    award.setActivityId(saveActivity.getId());
-                    award.setStatus(AWARD_NORMAL);
-                }
-        );
-        awardRep.saveAll(activity.getAwards());
-        return saveActivity;
+    public Long insertActivity(Activity activity,Long id) {
+        Activity activity1 =new Activity();
+
+        activity1.setTitle(activity.getTitle());
+        activity1.setDetails(activity.getDetails());
+        activity1.setImage(activity.getImage());
+        activity1.setShopId(id);
+        activity1.setStatus(ACTIVITGY_INSERT);
+        Long saveActivityId =activityRep.save(activity1).getId();
+        return saveActivityId;
+
     }
 
 
@@ -64,6 +66,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     /**this abstract method aims to find the activity which has not been closed
      * @param shopId
+     * @param status
      * @return Object of activity which has not been closed
      * @author jayzh
      */
@@ -95,37 +98,7 @@ public class ActivityServiceImpl implements ActivityService {
         return activity;
     }
 
-//    @Override
-//    public Activity findValidActivityByShopId(Long shopId) {
-//        return activityRep.findByShopIdAndStatus(shopId, Status.ACTIVITY_VALID).getId();
-//    }
 
-    /**
-     * @author luoxinyuan
-     * @param shop
-     * @return
-     */
-    @Override
-    public Ret canCreateActivity(Shop shop,Activity activity) {
-        Activity runningActivity = findRunningActivity(activity.getShopId());
-        if (runningActivity == null) {
-            int awardNumber = activity.getAwards().size();
-            if (awardNumber > AWARD_MAX_NUMBER){
-                return Ret.error(AwardResult.AWARD_NUMBER_EXCEED);
-            }
-            else{
-                int probability = activity.getAwards().stream()
-                        .mapToInt(award->award.getProbability()).sum();
-                //判断参数合法性
-                if (probability == PROBABILITY) {
-                    return Ret.success();
-                } else {
-                    return Ret.error(AwardResult.AWARD_PROBABILITY_WRONG);
-                }
-            }
-        }
-        return Ret.error(ActivityResult.ACTIVITY_IS_RUNNING);
-    }
 
     @Override
     public Activity findByActivityIdAndStatus(Long activityId, Integer status) {

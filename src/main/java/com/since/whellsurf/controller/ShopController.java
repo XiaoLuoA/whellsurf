@@ -2,14 +2,15 @@ package com.since.whellsurf.controller;
 
 import com.since.whellsurf.common.SessionKey;
 import com.since.whellsurf.common.Status;
-import com.since.whellsurf.entity.Account;
 import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
-import com.since.whellsurf.ret.AccountResult;
-import com.since.whellsurf.ret.ActivityResult;
 import com.since.whellsurf.ret.AwardResult;
+import com.since.whellsurf.ret.Result;
+import com.since.whellsurf.entity.AccountAward;
+import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.dto.CheckAwardParameter;
+import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.ret.Ret;
 import com.since.whellsurf.service.AccountAwardService;
 import com.since.whellsurf.service.ActivityService;
@@ -49,61 +50,21 @@ public class ShopController {
 
 
 
-    @RequestMapping("/checkDrawPrize")
-    @ResponseBody
-    public Ret CheckDrawPrize(@RequestParam String activityId){
-        Long acId = Long.valueOf(activityId);
-        //判断活动是否有效
-        Activity activity = activityService.findByActivityIdAndStatus(acId, Status.ACTIVITY_VALID);
-        if (activity == null){
-            return Ret.error(ActivityResult.ACTIVITY_IS_OUTDATED);
-        }
-
-        Account account = (Account)request.getSession().getAttribute(SessionKey.LOGIN_USER);
-        Shop shop = (Shop) request.getSession().getAttribute(SessionKey.LOGIN_SHOP);
-        if (account == null || shop == null){
-            return Ret.error(AccountResult.ACCOUNT_NOT_LOGIN);
-        }
-        //先根据用户的openid得到中奖信息
-        AccountAward accountAward = accountAwardService.findByOpenId(account.getOpenid());
-        if (accountAward != null){
-            //存在中奖信息
-            return Ret.error(AwardResult.GET_AWARD_REPEAT);
-        }
-        Activity shopActivity = activityService.findRunningActivity(shop.getId());
-        //如果商家的活动id和此活动id不匹配，说明商家作为一个用户抽别的商家的奖
-        if (!shopActivity.getId().equals(activityId) ){
-            //检查中奖表中是否存在商家中奖别的活动的信息
-            AccountAward accountAward_shop = accountAwardService.findByOpenId(account.getOpenid());
-            if (accountAward_shop != null){
-                return Ret.error(AwardResult.GET_AWARD_REPEAT);
-            }
-        }
-        return Ret.success("可以抽奖");
-    }
-    }
-
     /**
      * @author jayzh
      */
     @RequestMapping("/findAllRedeems")
     @ResponseBody
     public Ret findAllRedeems(Long activityId){
-        Ret ret;
-        List<AccountAward> accountAwards=null;
-        if(null==activityId){
-            ret = new Ret(ACTIVITYID_EXCEPTION,null);
-            return ret;
+        if(activityId == null){
+            return Ret.error(ACTIVITYID_EXCEPTION);
         }
-        try{
-            accountAwards=activityService.getActivityAwardsById(activityId);
-        }catch (Exception e){
-            ret=new Ret(NOT_FIND_ACCOUNT_AWARD,null);
-            return ret;
-        }
-        accountAwards=accountAwardService.hideUselessInformation(accountAwards);
-        ret=new Ret(SUCCESS,accountAwards);
-        return ret;
+        List<AccountAward> accountAwards = accountAwardService.findAccountAwardByActivityId(activityId);
+          if (accountAwards.size() == 0){
+              return Ret.error(NOT_FIND_ACCOUNT_AWARD);
+          }
+        accountAwards = accountAwardService.hideUselessInformation(accountAwards);
+        return Ret.success(accountAwards);
     }
 
 
@@ -116,18 +77,15 @@ public class ShopController {
         Ret ret;
         int amount;
         if(null==activityId){
-            ret = new Ret(ACTIVITYID_EXCEPTION,null);
-            return ret;
+            return Ret.error(ACTIVITYID_EXCEPTION);
         }
         try {
             amount=activityService.getAmountJoinActivity(activityId);
         }catch (Exception e){
-            ret=new Ret(NOT_FIND_SHOP_ACTIVITY,ACTIVITY_ZERO);
-            return ret;
+            return Ret.error(NOT_FIND_SHOP_ACTIVITY);
         }
 
-        ret=new Ret(SUCCESS,amount);
-        return ret;
+        return Ret.success(amount);
     }
 
     /**
@@ -136,18 +94,10 @@ public class ShopController {
     @RequestMapping("/finish")
     @ResponseBody
     public Ret finish(){
-        Shop shop=(Shop)request.getSession().getAttribute("shoper");
+        Shop shop = (Shop)request.getSession().getAttribute(SessionKey.LOGIN_SHOP);
         Activity activity = null;
-        Ret ret;
-        try {
-            activity=activityService.findRunningActivity(shop.getId(),ACTIVITY_YET_EXIT);
-            activity=activityService.finish(activity);
-        }catch (Exception e){
-            ret=new Ret(NOT_FIND_SHOP_ACTIVITY, null);
-            return ret;
-        }
-        ret=new Ret(SUCCESS, activity.getStatus());
-        return ret;
+        return Ret.error(NOT_FIND_SHOP_ACTIVITY);
+
     }
     /**
      * @author jayzh
@@ -155,51 +105,48 @@ public class ShopController {
     @RequestMapping("/redeem")
     @ResponseBody
     public Ret redeem(Long userId,Long activityId){
-        AccountAward accountAward;
-        try{
-            accountAward=accountAwardService.redeem(activityId,userId);
-        }catch (Exception e){
-            Ret ret=new Ret(NOT_FIND_ACCOUNT_AWARD, null);
-            return ret;
+        if (userId == null || activityId == null){
+            return Ret.error(ACTIVITYID_EXCEPTION);
         }
-        Ret ret=new Ret(SUCCESS, accountAward.getStatus());
-        return ret;
+        Shop shop = (Shop)request.getSession().getAttribute(SessionKey.LOGIN_SHOP);
+        Activity activity = activityService.findValidActivityByShopId(shop.getId());
+        if (!activity.getId().equals(activityId)){
+            return Ret.error(ACTIVITY_EXCEPTION);
+        }
+        AccountAward accountAward = accountAwardService.redeem(activityId,userId);
+        if (accountAward == null){
+            return Ret.error(NOT_FIND_ACCOUNT_AWARD);
+        }
+        return Ret.success();
     }
 
     @RequestMapping("/findNotRedeems")
     @ResponseBody
     public Ret findNotRedeems(Long activityId){
-        Ret ret;
-        if(null==activityId){
-            ret = new Ret(ACTIVITYID_EXCEPTION,null);
-            return ret;
+
+        if(activityId == null){
+            return Ret.error(ACTIVITYID_EXCEPTION);
         }
-        List<AccountAward> accountAwards=accountAwardService.findAccountAward(activityId,REDEEM_STATUS_OK);
-        if (accountAwards.size()<=0){
-            ret=new Ret(NOT_FIND_ACCOUNT_AWARD,null);
-            return ret;
+        List<AccountAward> accountAwards=accountAwardService.findAccountAward(activityId,REDEEM_STATUS_NOT);
+        if (accountAwards.size() == 0){
+            return Ret.error(NOT_FIND_ACCOUNT_AWARD);
         }
         accountAwards=accountAwardService.hideUselessInformation(accountAwards);
-        ret=new Ret(SUCCESS,accountAwards);
-        return ret;
+        return Ret.success(accountAwards);
     }
 
     @RequestMapping("/findRedeems")
     @ResponseBody
     public Ret findRedeems(Long activityId){
-        Ret ret;
-        if(null==activityId){
-            ret = new Ret(ACTIVITYID_EXCEPTION,null);
-            return ret;
+        if(activityId == null){
+            return Ret.error(ACTIVITYID_EXCEPTION);
         }
-        List<AccountAward> accountAwards=accountAwardService.findAccountAward(activityId,REDEEM_STATUS_OK);
-        if (accountAwards.size()<=0){
-            ret=new Ret(NOT_FIND_ACCOUNT_AWARD,null);
-            return ret;
+        List<AccountAward> accountAwards = accountAwardService.findAccountAward(activityId,REDEEM_STATUS_ALREADY);
+        if (accountAwards.size() == 0){
+            return Ret.error(NOT_FIND_ACCOUNT_AWARD);
         }
         accountAwards=accountAwardService.hideUselessInformation(accountAwards);
-        ret=new Ret(SUCCESS,accountAwards);
-        return ret;
+        return Ret.success(accountAwards);
     }
 
 

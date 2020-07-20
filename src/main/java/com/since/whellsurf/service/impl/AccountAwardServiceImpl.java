@@ -19,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import static com.since.whellsurf.common.Status.REDEEM_STATUS_OK;
+
 
 /**
  * @author jayzh
@@ -50,8 +50,8 @@ public class AccountAwardServiceImpl implements AccountAwardService {
      */
     @Override
     public AccountAward redeem(Long activityId, Long AccountId) {
-        AccountAward accountAward=accountAwardRep.findByActivityIdAndAccountId(activityId,AccountId);
-        accountAward.setStatus(REDEEM_STATUS_OK);
+        AccountAward accountAward = accountAwardRep.findByActivityIdAndAccountId(activityId,AccountId);
+        accountAward.setStatus(Status.REDEEM_STATUS_ALREADY);
         return accountAwardRep.save(accountAward);
     }
 
@@ -129,6 +129,17 @@ public class AccountAwardServiceImpl implements AccountAwardService {
         return accountAwardRep.findByOpenid(openId);
     }
 
+    @Override
+    public List<AccountAward> findAccountAwardByActivityIdAndStatus(Long activityId, Integer status) {
+        return accountAwardRep.findAllByActivityIdAndStatus(activityId,status);
+    }
+
+    @Override
+    public List<AccountAward> findAccountAwardByActivityId(Long activityId) {
+        return accountAwardRep.findAllByActivityId(activityId);
+    }
+
+
 
     /**
      * this method aims to find AccountAward By ActivityId and status
@@ -140,7 +151,7 @@ public class AccountAwardServiceImpl implements AccountAwardService {
      */
     @Override
     public List<AccountAward> findAccountAward(Long activityId, Integer status) {
-        List<AccountAward> accountAwards=accountAwardRep.findByActivityIdAndStatus(activityId,status);
+        List<AccountAward> accountAwards=accountAwardRep.findAllByActivityIdAndStatus(activityId,status);
         return accountAwards;
     }
 
