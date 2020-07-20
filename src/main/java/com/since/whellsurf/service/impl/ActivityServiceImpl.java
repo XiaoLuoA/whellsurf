@@ -93,8 +93,8 @@ public class ActivityServiceImpl implements ActivityService {
      * @author jayzh
      */
     @Override
-    public Activity finish(Activity activity,Long shopId) {
-        activity = activityRep.findByShopIdAndStatus(shopId,ACTIVITY_VALID);
+    public Activity finish(Long shopId) {
+        Activity activity = activityRep.findByShopIdAndStatus(shopId,ACTIVITY_VALID);
         activity.setStatus(ACTIVITY_END);
         return save(activity);
     }

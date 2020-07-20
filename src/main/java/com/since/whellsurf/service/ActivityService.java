@@ -39,11 +39,10 @@ public interface ActivityService  {
 
     /**
      * 结束活动，修改状态
-     * @param activity 活动信息
      * @param shopId 商户id
      * @return 活动信息
      */
-    public Activity finish(Activity activity,Long shopId);
+    public Activity finish(Long shopId);
 
 
     /**
