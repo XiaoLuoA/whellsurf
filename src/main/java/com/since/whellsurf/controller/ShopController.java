@@ -98,7 +98,7 @@ public class ShopController {
     @ResponseBody
     public Ret finish(){
         Shop shop = (Shop)request.getSession().getAttribute(SessionKey.LOGIN_SHOP);
-        
+
         activityService.finish(shop.getId());
         return Ret.error(NOT_FIND_SHOP_ACTIVITY);
 
