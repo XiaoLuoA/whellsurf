@@ -1,9 +1,7 @@
 package com.since.whellsurf.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
 
@@ -40,12 +38,5 @@ public class AccountAward {
 
     @Column(name = "shop_id")
     private Long shopId;
-
-//    @JsonIgnore
-//    @ManyToOne(fetch=FetchType.LAZY)
-//    @JoinColumn(name = "award_id")
-//    private Award award;
-
-
 
 }
