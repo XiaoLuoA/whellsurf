@@ -52,32 +52,27 @@ public class ShopController {
 
     /**
      * @author jayzh
+     * 查询所有兑奖
      */
     @RequestMapping("/findAllRedeems")
     @ResponseBody
     public Ret findAllRedeems(Long activityId){
-        Ret ret;
-        List<AccountAward> accountAwards=null;
-        if(null==activityId){
-            ret = new Ret(ACTIVITYID_EXCEPTION,null);
-            return ret;
+        if(activityId == null){
+            return Ret.error(ACTIVITYID_EXCEPTION);
         }
-        try{
-            accountAwards=activityService.getActivityAwardsById(activityId);
-        }catch (Exception e){
-            ret=new Ret(NOT_FIND_ACCOUNT_AWARD,null);
-            return ret;
-        }
-        accountAwards=accountAwardService.hideUselessInformation(accountAwards);
-        ret=new Ret(SUCCESS,accountAwards);
-        return ret;
+        List<AccountAward> accountAwards = accountAwardService.findAccountAwardByActivityId(activityId);
+          if (accountAwards.size() == 0){
+              return Ret.error(NOT_FIND_ACCOUNT_AWARD);
+          }
+        accountAwards = accountAwardService.hideUselessInformation(accountAwards);
+        return Ret.success(accountAwards);
     }
 
 
     /**
      * @author jayzh
      */
-    @RequestMapping("/findaccounts")
+    @RequestMapping("/findAccounts")
     @ResponseBody
     public Ret findAccounts(Long activityId){
         Ret ret;
@@ -154,15 +149,12 @@ public class ShopController {
     @RequestMapping("/findRedeems")
     @ResponseBody
     public Ret findRedeems(Long activityId){
-        Ret ret;
-        if(null==activityId){
-            ret = new Ret(ACTIVITYID_EXCEPTION,null);
-            return ret;
+        if(activityId == null){
+            return Ret.error(ACTIVITYID_EXCEPTION);
         }
-        List<AccountAward> accountAwards=accountAwardService.findAccountAward(activityId,REDEEM_STATUS_OK);
+        List<AccountAward> accountAwards = accountAwardService.findAccountAward(activityId,REDEEM_STATUS_OK);
         if (accountAwards.size()<=0){
-            ret=new Ret(NOT_FIND_ACCOUNT_AWARD,null);
-            return ret;
+            return Ret.error(NOT_FIND_ACCOUNT_AWARD);
         }
         accountAwards=accountAwardService.hideUselessInformation(accountAwards);
         ret=new Ret(SUCCESS,accountAwards);

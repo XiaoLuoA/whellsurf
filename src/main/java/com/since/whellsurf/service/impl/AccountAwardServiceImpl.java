@@ -129,6 +129,17 @@ public class AccountAwardServiceImpl implements AccountAwardService {
         return accountAwardRep.findByOpenid(openId);
     }
 
+    @Override
+    public List<AccountAward> findAccountAwardByActivityIdAndStatus(Long activityId, Integer status) {
+        return accountAwardRep.findAllByActivityIdAndStatus(activityId,status);
+    }
+
+    @Override
+    public List<AccountAward> findAccountAwardByActivityId(Long activityId) {
+        return accountAwardRep.findAllByActivityId(activityId);
+    }
+
+
 
     /**
      * this method aims to find AccountAward By ActivityId and status

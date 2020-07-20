@@ -56,6 +56,30 @@ public interface AccountAwardService {
     AccountAward findByOpenId(String openId);
 
 
+    /**
+     * @author wyh
+     */
+    /**
+     * 通过活动id和状态查找中奖信息
+     * @param activityId 活动id
+     * @param status 活动状态
+     * @return 中奖信息集合
+     */
+    List<AccountAward> findAccountAwardByActivityIdAndStatus(Long activityId, Integer status);
+
+
+
+    /**
+     * @author wyh
+     */
+    /**
+     * 通过活动id查找所有中奖信息
+     * @param activityId 活动id
+     * @return 中奖信息集合
+     */
+    List<AccountAward> findAccountAwardByActivityId(Long activityId);
+
+
     /**this method aims to find AccountAward By ActivityId and status
      * @param activityId
      * @param status
