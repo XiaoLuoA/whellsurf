@@ -6,7 +6,7 @@ package com.since.whellsurf.common;
 public interface Config {
     String HOST = "http://wxtest.easy.echosite.cn";
     String SHOP_INDEX = "/wx";
-    String ACTIVITY_INDEX = "/wx";
+    String ACTIVITY_INDEX = "/wx/account/drawPrize/";
 
     String LOTTERY_HOST = "http://wxtest.easy.echosite.cn/accountGreet";
     String appId = "wx55cd46481d4e28d6";

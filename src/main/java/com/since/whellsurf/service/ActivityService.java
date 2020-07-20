@@ -1,14 +1,14 @@
 package com.since.whellsurf.service;
 
 import com.since.whellsurf.entity.Account;
-import com.since.whellsurf.entity.AccountAward;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.ret.Ret;
 
+/**
+ * @author luoxinyuan,drj
+ */
 public interface ActivityService  {
-
-    AccountAward findByActivityIdAndAccountId(Long activityId, Long AccountId);
 
     /**
      * @author drj
@@ -25,7 +25,7 @@ public interface ActivityService  {
      * @return Object of activity which has not been closed
      * @author jayzh
      */
-   public Activity findRunningActivity(Long shopId);
+    Activity findRunningActivity(Long shopId);
 
 
     /**
@@ -33,7 +33,7 @@ public interface ActivityService  {
      * @param shopId 商户id
      * @return 活动信息
      */
-    public Activity finish(Long shopId);
+     Activity finish(Long shopId);
 
 
 
@@ -57,7 +57,6 @@ public interface ActivityService  {
      * @author luoxinyuan
      */
     Ret canCreateActivity(Shop shop, Activity activity);
-
 
     Ret shopGetPrize(Long activityId, Shop shop);
 

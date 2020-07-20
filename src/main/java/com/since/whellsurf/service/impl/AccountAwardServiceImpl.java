@@ -59,6 +59,7 @@ public class AccountAwardServiceImpl implements AccountAwardService {
         String awardCode = RandomUtil.genRandomCode(Status.AWARD_CODE_LENGTH);
         double awardProbability = RandomUtil.genAwardRandom();
         List<Award> awardList = awardRep.findAllSortAward(activityId);
+        System.out.println(awardList);
         int tmp = 0;
         Award ret = null;
         for (Award award:awardList){
@@ -67,13 +68,10 @@ public class AccountAwardServiceImpl implements AccountAwardService {
                 ret = award;
             }
         }
-
-        if (ret==null){
-            return  null;
-        }else {
+        if (ret!=null){
             ret.setAwardCode(awardCode);
-            return ret;
         }
+        return ret;
     }
 
     @Override
@@ -82,7 +80,7 @@ public class AccountAwardServiceImpl implements AccountAwardService {
     }
 
     @Override
-    public Award addAccountAward(Long activityId, Account account) {
+    public Award getPrizeAndSave(Long activityId, Account account, Long shopId) {
             Award ret = getPrize(activityId);
             AccountAward accountAward1 = new AccountAward();
             accountAward1.setOpenid(account.getOpenid());
@@ -93,6 +91,7 @@ public class AccountAwardServiceImpl implements AccountAwardService {
             accountAward1.setAwardName(ret.getName());
             accountAward1.setAwardCode(ret.getAwardCode());
             accountAward1.setStatus(Status.ACCOUNT_AWARD_NOT_REDEEM);
+            accountAward1.setShopId(shopId);
             accountAwardRep.save(accountAward1);
             return ret;
 
