@@ -15,7 +15,17 @@ import java.util.List;
 @Repository
 public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
 
-    AccountAward findByActivityIdAndAccountId(Long activityId,Long AccountId);
+
+    /**
+     * @author wyh
+     */
+    /**
+     * 通过用户id和活动id查找中奖信息
+     * @param activityId 活动id
+     * @param accountId 用户id
+     * @return 中奖信息
+     */
+    AccountAward findByActivityIdAndAccountId(Long activityId,Long accountId);
 
     /**
      * @author wyh
@@ -42,6 +52,12 @@ public interface  AccountAwardRep extends JpaRepository<AccountAward,Long> {
      */
     @Override
     AccountAward save(AccountAward accountAward);
+
+
+
+
+
+
 
 
 
