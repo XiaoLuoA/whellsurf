@@ -37,12 +37,13 @@ public interface ActivityService  {
     public Activity save(Activity activity);
 
 
-    /**this abstract method aims to end the activity
-     * @param activity
-     * @return Object of activity
-     * @author jayzh
+    /**
+     * 结束活动，修改状态
+     * @param activity 活动信息
+     * @param shopId 商户id
+     * @return 活动信息
      */
-    public Activity finish(Activity activity);
+    public Activity finish(Activity activity,Long shopId);
 
 
     /**

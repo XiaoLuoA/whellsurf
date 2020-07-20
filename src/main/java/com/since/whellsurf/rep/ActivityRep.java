@@ -20,14 +20,23 @@ public interface ActivityRep extends JpaRepository<Activity,Long> {
    public Activity findActivityById(Long acId);
 
 
-    /**this method aims to find Activity By shopId and status
+    /**
+     * 根据商品id和状态查找活动
      * @param shopId
      * @param status
-     * @return list of Activity
+     * @return 活动信息
      * @author jayzh
      */
-    public List<Activity> findByShopIdAndStatus(Long shopId, Integer status);
+    Activity findByShopIdAndStatus(Long shopId, Integer status);
 
+
+    /**
+     * 根据商品id和状态查找所有活动
+     * @param shopId
+     * @param status
+     * @return 活动集合
+     */
+    List<Activity> findAllByShopIdAndStatus(Long shopId, Integer status);
 
 
 

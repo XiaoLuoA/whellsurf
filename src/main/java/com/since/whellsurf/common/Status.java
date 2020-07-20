@@ -15,8 +15,8 @@ public interface Status {
     Integer SHOP_NOT_ACTIVATE = 2;
 
 
-    Integer REDEEM_STATUS_OK=2;
-    Integer REDEEM_STATUS_NO=1;
+    Integer REDEEM_STATUS_ALREADY =2;
+    Integer REDEEM_STATUS_NOT=1;
 
     Integer ACTIVITY_YET_EXIT=1;
     Integer ACTIVITY_NOT_EXIT=2;

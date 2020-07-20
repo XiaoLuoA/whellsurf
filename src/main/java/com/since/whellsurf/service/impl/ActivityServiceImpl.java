@@ -29,6 +29,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Autowired
     ActivityRep activityRep;
+
     @Autowired
     HttpServletRequest httpServletRequest;
 
@@ -72,8 +73,7 @@ public class ActivityServiceImpl implements ActivityService {
      */
     @Override
     public Activity findExitActivity(Long shopId, Integer status){
-        List<Activity> activities=activityRep.findByShopIdAndStatus(shopId,status);
-        return activities.get(ACTIVITY_EXIT_INDEX);
+        return activityRep.findByShopIdAndStatus(shopId,status);
     }
 
 
@@ -93,15 +93,15 @@ public class ActivityServiceImpl implements ActivityService {
      * @author jayzh
      */
     @Override
-    public Activity finish(Activity activity) {
+    public Activity finish(Activity activity,Long shopId) {
+        activity = activityRep.findByShopIdAndStatus(shopId,ACTIVITY_VALID);
         activity.setStatus(ACTIVITY_END);
-        activity=save(activity);
-        return activity;
+        return save(activity);
     }
 
     @Override
     public Activity findValidActivityByShopId(Long shopId) {
-        return activityRep.findByShopIdAndStatus(shopId, Status.ACTIVITY_VALID).get(0);
+        return activityRep.findByShopIdAndStatus(shopId, Status.ACTIVITY_VALID);
     }
 
     @Override
