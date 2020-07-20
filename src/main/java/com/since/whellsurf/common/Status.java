@@ -25,6 +25,6 @@ public interface Status {
     Integer ACTIVITY_ZERO=0;
     Integer PROBABILITY=100;
     Integer AWARD_MAX_NUMBER=10;
-    Integer AWARD_INSERT=1;
+    Integer AWARD_NORMAL =1;
     Integer ACTIVITGY_INSERT=1;
 }
