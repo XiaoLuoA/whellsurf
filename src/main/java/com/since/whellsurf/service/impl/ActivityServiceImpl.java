@@ -65,7 +65,10 @@ public class ActivityServiceImpl implements ActivityService {
         return saveActivity;
     }
 
-
+    @Override
+    public Activity findById(Long id) {
+        return activityRep.findById(id).get();
+    }
 
 
     /**this abstract method aims to find the activity which has not been closed
@@ -77,6 +80,7 @@ public class ActivityServiceImpl implements ActivityService {
     public Activity findRunningActivity(Long shopId){
         return activityRep.findByShopIdAndStatus(shopId, ACTIVITY_RUNNING);
     }
+
 
 
 
