@@ -80,14 +80,6 @@ public interface AccountAwardService {
     List<AccountAward> findAccountAwardByActivityId(Long activityId);
 
 
-    /**this method aims to find AccountAward By ActivityId and status
-     * @param activityId
-     * @param status
-     * @return list of AccountAward
-     * @author jayzh
-     */
-    public List<AccountAward> findAccountAward(Long activityId, Integer status);
-
 
     /**
      * this abstract method aims to hide some information which is useless
@@ -97,6 +89,18 @@ public interface AccountAwardService {
      * @author jayzh
      */
     public List<AccountAward> hideUselessInformation(List<AccountAward> accountAwards);
+
+
+
+
+
+
+    /**
+     * 查找参加活动的人数
+     * @param activityId 活动id
+     * @return 人数
+     */
+     int findJoinActivityAmount(Long activityId);
 
 
     }

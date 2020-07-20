@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.since.whellsurf.common.Status.AWARD_INSERT;
+import static com.since.whellsurf.common.Status.AWARD_NORMAL;
 
 @Service
 public class AwardServiceImpl implements AwardService {
@@ -26,7 +26,7 @@ public class AwardServiceImpl implements AwardService {
     public void insertAwards(List<Award> awards,Long activityId) {
 
        awards.forEach(award -> {
-           award.setStatus(AWARD_INSERT);
+           award.setStatus(AWARD_NORMAL);
            award.setActivityId(activityId);
        });
         awardRep.saveAll(awards);
