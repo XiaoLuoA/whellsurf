@@ -3,8 +3,11 @@ package com.since.whellsurf.service.impl;
 import com.since.whellsurf.common.Status;
 import com.since.whellsurf.entity.*;
 import com.since.whellsurf.rep.AccountAwardRep;
+import com.since.whellsurf.rep.ActivityRep;
 import com.since.whellsurf.rep.AwardRep;
 import com.since.whellsurf.service.AccountAwardService;
+import com.since.whellsurf.service.ActivityService;
+import com.since.whellsurf.service.ShopService;
 import com.since.whellsurf.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,15 @@ public class AccountAwardServiceImpl implements AccountAwardService {
 
     @Autowired
     AccountAwardRep accountAwardRep;
+
+    @Autowired
+    private ShopService shopService;
+
+    @Autowired
+    private ActivityService activityService;
+
+    @Autowired
+    private ActivityRep activityRep;
 
     @Autowired
     private AwardRep awardRep;
@@ -43,12 +55,8 @@ public class AccountAwardServiceImpl implements AccountAwardService {
     }
 
     @Override
-    public AccountAward findByActivityIdAndAccountId(Long activityId, Long AccountId) {
-        return accountAwardRep.findByActivityIdAndAccountId(activityId,AccountId);
-    }
-
-    @Override
     public Award getPrize(Long activityId){
+        String awardCode = RandomUtil.genRandomCode(Status.AWARD_CODE_LENGTH);
         double awardProbability = RandomUtil.genAwardRandom();
         List<Award> awardList = awardRep.findAllSortAward(activityId);
         System.out.println(awardList);
@@ -61,10 +69,14 @@ public class AccountAwardServiceImpl implements AccountAwardService {
             }
         }
         if (ret!=null){
-            String awardCode = RandomUtil.genRandomCode(Status.AWARD_CODE_LENGTH);
             ret.setAwardCode(awardCode);
         }
         return ret;
+    }
+
+    @Override
+    public AccountAward findByActivityIdAndAccountId(Long activityId, Long accountId) {
+        return accountAwardRep.findByActivityIdAndAccountId(activityId, accountId);
     }
 
     @Override
@@ -82,6 +94,7 @@ public class AccountAwardServiceImpl implements AccountAwardService {
             accountAward1.setShopId(shopId);
             accountAwardRep.save(accountAward1);
             return ret;
+
     }
 
     @Override
@@ -115,7 +128,6 @@ public class AccountAwardServiceImpl implements AccountAwardService {
         for (AccountAward ad:accountAwards) {
             ad.setOpenid(null);
             ad.setActivityId(null);
-            ad.setAccountId(null);
         }
         return accountAwards;
     }
