@@ -53,7 +53,8 @@ public class ActivityServiceImpl implements ActivityService {
         activity.setShopId(id);
         activity.setStatus(ACTIVITY_RUNNING);
         Activity saveActivity = activityRep.save(activity);
-        String wxUrl= WXUtil.genGetUserURL(Config.appId, Config.HOST+Config.ACTIVITY_INDEX+"?activityId="+saveActivity.getId());
+        String wxUrl= WXUtil.genGetUserURL(Config.appId, Config.HOST+Config.ACTIVITY_INDEX+"/"+saveActivity.getId());
+        System.out.println("创建活动的url "+wxUrl);
         saveActivity.setImage(wxUrl);
         activity.getAwards().forEach(
                 award -> {
@@ -109,8 +110,12 @@ public class ActivityServiceImpl implements ActivityService {
                 return Ret.error(AwardResult.AWARD_NUMBER_EXCEED);
             }
             else{
+                System.out.println(activity);
+
                 int probability = activity.getAwards().stream()
                         .mapToInt(award->award.getProbability()).sum();
+
+                System.out.println(probability);
                 if (probability == AWARD_PROBABILITY) {
                     return Ret.success();
                 } else {

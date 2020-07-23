@@ -5,14 +5,15 @@ package com.since.whellsurf.common;
  */
 public interface Config {
     String HOST = "http://wxtest.easy.echosite.cn";
-    String SHOP_INDEX = "/wx";
-    String ACTIVITY_INDEX = "/wx/account/drawPrize/";
+    String SHOP_INDEX = "/wx/shopGreet";
+    String ACTIVITY_INDEX = "/wx/accountGreet";
+
 
     String LOTTERY_HOST = "http://wxtest.easy.echosite.cn/accountGreet";
     String appId = "wx55cd46481d4e28d6";
 
 
-    String SHOP_NO_PERMISSION_REDIRECT = "";
+    String SHOP_NO_PERMISSION_REDIRECT = HOST+Config.SHOP_INDEX;
 
     String USER_NO_PERMISSION_REDIRECT = "";
 
@@ -21,5 +22,6 @@ public interface Config {
      */
     String[] shopURL = {
         "/activity/addActivity",
+            "/to/add_award"
     };
 }

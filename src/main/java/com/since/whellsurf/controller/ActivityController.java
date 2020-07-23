@@ -9,6 +9,7 @@ import com.since.whellsurf.ret.*;
 import com.since.whellsurf.service.ActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
@@ -26,9 +27,16 @@ public class ActivityController {
     @Autowired
     HttpServletRequest httpServletRequest;
 
+    @RequestMapping("/test")
+    @ResponseBody
+    public Ret test(@RequestBody Activity activity){
+        System.out.println(activity);
+        return Ret.error();
+    }
+
     @RequestMapping("/addActivity")
     @ResponseBody
-    public Ret createActivity(Activity activity) {
+    public Ret createActivity(@RequestBody Activity activity) {
         Shop shop = (Shop) httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_SHOP);
         if (shop == null){
             return Ret.noPermission(Config.SHOP_NO_PERMISSION_REDIRECT);
@@ -38,19 +46,20 @@ public class ActivityController {
             Activity act = activityService.insertActivity(activity,shop.getId());
             return Ret.success(act.getImage());
         } else{
-            return Ret.error(ActivityResult.ACTIVITY_IS_RUNNING);
+            return ret;
         }
     }
 
 
     @RequestMapping("/activityInfo")
     @ResponseBody
-    public Ret activityInfo(Long activityId){
-        Activity activity= activityService.findByActivityIdAndStatus(activityId, Status.ACTIVITY_RUNNING);
-        if (null==activity){
+    public Ret activityInfo(){
+        Shop shop = (Shop) httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_SHOP);
+        Activity act = activityService.findRunningActivity(shop.getId());
+        if (null==act){
             return Ret.error(ACTIVITY_NOT_FIND);
         }
-        return Ret.success(activity);
+        return Ret.success(act);
     }
 }
 

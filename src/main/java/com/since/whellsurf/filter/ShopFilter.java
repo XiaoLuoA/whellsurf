@@ -27,9 +27,10 @@ public class ShopFilter implements Filter {
         System.out.println("filter url:"+uri);
         //是否需要过滤
         boolean needFilter = isNeedFilter(uri);
-
+        System.out.println(needFilter);
         //不需要过滤直接传给下一个过滤器
         if (!needFilter) {
+            System.out.println("no need");
             filterChain.doFilter(servletRequest, servletResponse);
         } else { //需要过滤器
             // session中包含shop对象,则是登录状态
@@ -43,7 +44,7 @@ public class ShopFilter implements Filter {
                     response.getWriter().write(JSON.toJSONString(Ret.noPermission(redirectURL)));
                 }else{
                     //重定向到登录页(需要在static文件夹下建立此html文件)
-                    response.sendRedirect(request.getContextPath()+redirectURL);
+                    response.sendRedirect(redirectURL);
                 }
             }
         }

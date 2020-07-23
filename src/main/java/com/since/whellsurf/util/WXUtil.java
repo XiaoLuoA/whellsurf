@@ -1,5 +1,7 @@
 package com.since.whellsurf.util;
 
+import com.since.whellsurf.common.Config;
+
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -32,11 +34,9 @@ public class WXUtil {
      */
     public static void main(String[] args) {
         String appId = "wx55cd46481d4e28d6";
-        String uri = "http://wxtest.easy.echosite.cn/wx/wx55cd46481d4e28d6/accountGreet";
-        genGetUserURL(appId,uri);
-        genGetBaseURL(appId,uri);
-        genURL(appId,uri,Scope.USER_INFO);
-        genURL(appId,uri,Scope.BASE);
+        String uri = "http://wxtest.easy.echosite.cn/wx/accountGreet";
+        genGetUserURL(appId,Config.HOST+Config.SHOP_INDEX);
+
     }
 
     /**

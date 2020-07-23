@@ -42,6 +42,7 @@ public class ShopServiceImpl implements ShopService {
             shop.setNickname(user.getNickname());
             shop.setAddress(user.getCountry() + user.getProvince() + user.getCity());
             shop.setHeadImgUrl(user.getHeadImgUrl());
+            System.out.println(user.getHeadImgUrl());
             shop.setGender(user.getSexDesc());
             shop.setStatus(Status.SHOP_NOT_ACTIVATE);
             shop = shopRep.save(shop);

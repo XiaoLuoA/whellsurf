@@ -19,6 +19,7 @@ public interface Status {
     Integer AWARD_NORMAL =1;
 
     Integer SHOP_NOT_ACTIVATE = 2;
+    Integer SHOP_ACTIVATE = 1;
 
     Integer REDEEM_STATUS_ALREADY =2;
     Integer REDEEM_STATUS_NOT=1;

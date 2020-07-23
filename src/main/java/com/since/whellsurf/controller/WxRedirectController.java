@@ -2,12 +2,11 @@ package com.since.whellsurf.controller;
 
 import com.since.whellsurf.common.Config;
 import com.since.whellsurf.common.SessionKey;
-import com.since.whellsurf.common.Status;
-import com.since.whellsurf.entity.Account;
 import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
+import com.since.whellsurf.ret.ActivityResult;
+import com.since.whellsurf.ret.Code;
 import com.since.whellsurf.ret.Ret;
-import com.since.whellsurf.service.AccountService;
 import com.since.whellsurf.service.ActivityService;
 import com.since.whellsurf.service.ShopService;
 import lombok.AllArgsConstructor;
@@ -59,16 +58,15 @@ public class WxRedirectController {
                 if (activity==null){
                     return "redirect:/to/createActivity";
                 }
-                return "redirect:/to/lookActivity";
+                return "redirect:/to/findAward";
             } else {
-                return "redirect:/to/noPermission";
+                return "redirect:/to/noShop";
             }
         } catch (WxErrorException e) {
             e.printStackTrace();
         }
         return "/page/error/404.html";
     }
-
 
 
     @RequestMapping("/accountGreet/{activityId}")
@@ -86,15 +84,21 @@ public class WxRedirectController {
                 switch (data){
                     case SessionKey.LOGIN_SHOP : {
                         request.getSession().setAttribute(SessionKey.LOGIN_SHOP,shopService.findShopByOpenId(user.getOpenId()));
-                        return "redirect:/to/drawPrize";
+                        return "redirect:/to/lottery";
                     }
                     case SessionKey.LOGIN_USER : {
                         request.getSession().setAttribute(SessionKey.LOGIN_USER,shopService.findOrAddAccountByOpenId(user));
-                        return "redirect:/to/drawPrize";
+                        return "redirect:/to/lottery";
                     }
                 }
+            }else{
+                Code errCode = (Code)ret.getData();
+                if(errCode.equals(ActivityResult.ACTIVITY_NOT_FIND)){
+                    return "redirect:/to/noActivity";
+                }else {
+                    return "redirect:/to/activityOut";
+                }
             }
-            return "redirect:/to/activityerror";
         } catch (WxErrorException e) {
             e.printStackTrace();
         }

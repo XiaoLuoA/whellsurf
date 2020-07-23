@@ -14,7 +14,7 @@ public class JumpController {
         return "/activity/index";
     }
 
-    @RequestMapping("/addAward")
+    @RequestMapping("/add_award")
     public String attention(){
         return "/add_award/index";
     }
@@ -48,5 +48,21 @@ public class JumpController {
     public String buy(){
         return "/share/index";
     }
+
+    @RequestMapping("/noActivity")
+    public String noActivity(){
+        return "/error/no_activity";
+    }
+
+    @RequestMapping("/activityOut")
+    public String activityOut(){
+        return "/error/activity_out";
+    }
+
+    @RequestMapping("/noShop")
+    public String noShop(){
+        return "/error/no_shop";
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.since.whellsurf.controller;
 
+import com.since.whellsurf.common.Config;
 import com.since.whellsurf.common.SessionKey;
 import com.since.whellsurf.common.Status;
 import com.since.whellsurf.entity.AccountAward;
@@ -7,6 +8,7 @@ import com.since.whellsurf.entity.Activity;
 import com.since.whellsurf.entity.Shop;
 import com.since.whellsurf.ret.AwardResult;
 import com.since.whellsurf.dto.CheckAwardParameter;
+import com.since.whellsurf.ret.Result;
 import com.since.whellsurf.ret.Ret;
 import com.since.whellsurf.service.AccountAwardService;
 import com.since.whellsurf.service.ActivityService;
@@ -50,15 +52,16 @@ public class ShopController {
      */
     @RequestMapping("/findAllRedeems")
     @ResponseBody
-    public Ret findAllRedeems(Long activityId){
-        if(activityId == null){
-            return Ret.error(ACTIVITYID_EXCEPTION);
+    public Ret findAllRedeems(){
+        Shop shop = (Shop) request.getSession().getAttribute(SessionKey.LOGIN_SHOP);
+        if(shop == null){
+            return Ret.error(Result.NO_PERMISSION);
         }
-        List<AccountAward> accountAwards = accountAwardService.findAccountAwardByActivityId(activityId);
-          if (accountAwards.size() == 0){
-              return Ret.error(NOT_FIND_ALLREDEEMS);
-          }
-        accountAwards = accountAwardService.hideUselessInformation(accountAwards);
+        Activity activity = activityService.findRunningActivity(shop.getId());
+//        List<AccountAward> accountAwards = accountAwardService.findAccountAwardByActivityId(activityId);
+//
+//        accountAwards = accountAwardService.hideUselessInformation(accountAwards);
+        List<AccountAward> accountAwards = activity.getAccountAwards();
         return Ret.success(accountAwards);
     }
 
@@ -69,8 +72,9 @@ public class ShopController {
     @RequestMapping("/findAccounts")
     @ResponseBody
     public Ret findAccounts(Long activityId){
-        if( activityId == null){
-            return Ret.error(ACTIVITYID_EXCEPTION);
+        Shop shop = (Shop) request.getSession().getAttribute(SessionKey.LOGIN_SHOP);
+        if(shop == null){
+            return Ret.error(Result.NO_PERMISSION);
         }
         int amount = accountAwardService.findJoinActivityAmount(activityId);
         return Ret.success(amount);

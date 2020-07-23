@@ -17,7 +17,7 @@ public class Award {
 
     private String name;
 
-    @JsonIgnore
+
     private int probability;
 
     @JsonIgnore
