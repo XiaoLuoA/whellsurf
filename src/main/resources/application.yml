@@ -9,6 +9,8 @@ spring:
     password: 19980715
 #    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+  server:
+    port: 8080
   devtools:
     restart:
       enabled: true

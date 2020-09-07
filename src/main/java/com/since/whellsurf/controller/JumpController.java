@@ -14,7 +14,7 @@ public class JumpController {
         return "/activity/index";
     }
 
-    @RequestMapping("/add_award")
+    @RequestMapping("/addAward")
     public String attention(){
         return "/add_award/index";
     }

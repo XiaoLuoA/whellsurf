@@ -4,12 +4,12 @@ package com.since.whellsurf.common;
  * @author luoxinyuan
  */
 public interface Config {
-    String HOST = "http://wxtest.easy.echosite.cn";
+    String HOST = "http://since.easy.echosite.cn";
     String SHOP_INDEX = "/wx/shopGreet";
     String ACTIVITY_INDEX = "/wx/accountGreet";
 
 
-    String LOTTERY_HOST = "http://wxtest.easy.echosite.cn/accountGreet";
+    String LOTTERY_HOST = "http://since.easy.echosite.cn/accountGreet";
     String appId = "wx55cd46481d4e28d6";
 
 
@@ -22,6 +22,6 @@ public interface Config {
      */
     String[] shopURL = {
         "/activity/addActivity",
-            "/to/add_award"
+            "/to/addAward"
     };
 }

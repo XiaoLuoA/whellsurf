@@ -58,7 +58,7 @@ public class WxRedirectController {
                 if (activity==null){
                     return "redirect:/to/createActivity";
                 }
-                return "redirect:/to/findAward";
+                return "redirect:/to/findAward?activityId="+activity.getId();
             } else {
                 return "redirect:/to/noShop";
             }

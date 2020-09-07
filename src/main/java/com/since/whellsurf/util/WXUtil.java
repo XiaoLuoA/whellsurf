@@ -33,10 +33,10 @@ public class WXUtil {
      * @param args
      */
     public static void main(String[] args) {
+//        http://since.easy.echosite.cn
         String appId = "wx55cd46481d4e28d6";
-        String uri = "http://wxtest.easy.echosite.cn/wx/accountGreet";
+        String uri = "http://since.easy.echosite.cn/wx/shopGreet";
         genGetUserURL(appId,Config.HOST+Config.SHOP_INDEX);
-
     }
 
     /**
