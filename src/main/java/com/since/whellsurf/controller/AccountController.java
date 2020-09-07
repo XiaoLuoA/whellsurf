@@ -63,7 +63,7 @@ public class AccountController {
 
         AccountAward accountAward = accountAwardService.findByActivityIdAndAccountId(activityId,account.getId());
          if (accountAward != null){
-             return Ret.error(AwardResult.GET_AWARD_REPEAT);
+             return Ret.error(AwardResult.GET_AWARD_REPEAT).setErrMsg(accountAward.getAwardCode());
          }
          return Ret.success();
 

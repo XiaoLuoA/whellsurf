@@ -56,6 +56,7 @@ public class ActivityController {
     public Ret activityInfo(){
         Shop shop = (Shop) httpServletRequest.getSession().getAttribute(SessionKey.LOGIN_SHOP);
         Activity act = activityService.findRunningActivity(shop.getId());
+        act.setParticipates(act.getAccountAwards().size());
         if (null==act){
             return Ret.error(ACTIVITY_NOT_FIND);
         }

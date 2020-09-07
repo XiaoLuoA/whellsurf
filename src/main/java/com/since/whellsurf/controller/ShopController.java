@@ -76,6 +76,8 @@ public class ShopController {
         if(shop == null){
             return Ret.error(Result.NO_PERMISSION);
         }
+
+
         int amount = accountAwardService.findJoinActivityAmount(activityId);
         return Ret.success(amount);
     }

@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>兑奖信息</title>
+<link href="../../page/award_infor/award_infor.css" rel="stylesheet"></head>
+<link href="../../../public/css/mui.min.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<body>
+  <style>
+    .mui-control-content {
+      background-color: white;
+      min-height: 160vw;
+    }
+
+    .mui-control-content .mui-loading {
+      margin-top: 50px;
+    }
+  </style>
+  <header class="mui-bar mui-bar-nav">
+    <h1 class="mui-title">兑奖信息</h1>
+  </header>
+  <div class="mui-content">
+    <div id="slider" class="mui-slider">
+      <div id="sliderSegmentedControl"
+        class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted">
+        <a id="notredeem" class="mui-control-item mui-active">
+          未兑奖
+        </a>
+        <a id="redeem" class="mui-control-item">
+          已兑奖
+        </a>
+      </div>
+      <div id="sliderProgressBar" class=" mui-col-xs-6"></div>
+      <div class="mui-slider-group">
+        <div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+          <div id="scroll1" class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+              <ul id="display" class="mui-table-view" >
+              </ul>
+              <br><br><br><br><br>
+            </div>
+          </div>
+        </div>
+        <div id="item2mobile" class="mui-slider-item mui-control-content">
+          <div id="scroll2" class="mui-scroll-wrapper">
+            <div class="mui-scroll">
+              <div class="mui-loading">
+                <div class="mui-spinner">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div style="position: fixed;width: 100%; bottom:0;z-index:3;">
+    <ul class="mui-table-view mui-grid-view">
+      <li class="mui-table-view-cell  mui-col-xs-4">
+        <a href="../../../to/findAward"><span class="mui-icon mui-icon-search" style="font-size: 30px;"></span><br>
+          <div class="mui-active" style="font-size:14px;line-height: 16px; ">查 询</div>
+        </a>
+      </li>
+      <li class="mui-table-view-cell  mui-col-xs-4">
+        <a href="../../../to/awardInfo"><span class="mui-icon mui-icon-info" style="font-size: 30px;color: blue;"></span>
+          <div style="font-size:14px;line-height: 16px;color: blue;">兑奖信息</div>
+        </a>
+      </li>
+      <li class="mui-table-view-cell  mui-col-xs-4">
+        <a href="../../../to/activity">
+          <span class="mui-icon mui-icon-paperclip " style="font-size: 30px;"></span>
+          <div style="font-size:14px;line-height: 16px;">活动信息</div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <script src="../../../public/js/mui.min.js"></script>
+<script src="../../page/award_infor/index.b.js"></script></body>
+
+</html>

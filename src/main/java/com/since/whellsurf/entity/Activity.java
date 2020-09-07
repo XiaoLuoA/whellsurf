@@ -25,6 +25,9 @@ public class Activity {
 
     private String image;
 
+    @Transient
+    private int participates;
+
     @Column(name = "shop_id")
     private Long shopId;
 
