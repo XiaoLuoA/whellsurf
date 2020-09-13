@@ -1,0 +1,51 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>获奖查询</title>
+  <link href="../../page/find_award/find_award.css" rel="stylesheet"></head>
+  <link href="../../../public/css/mui.min.css" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+  <body>
+    <header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">获奖查询	</h1>
+		</header>
+		<div class="mui-content" >
+		<div class="mui-input-row mui-search"  style="width:85%;float:left;margin-top: 3px;" >
+			<input id="searchInput"  type="search" style="height: 40px; line-height: 40px;" class="mui-input-clear" placeholder=" 搜索获奖用户">
+		</div>
+		<button id="searchButton" class="mui-btn-primary"  style="width:15%;text-align:center;height: 40px;margin-top: 3px;">搜索</button>
+		</div><br>
+		<div id= attachEvent>
+		<ul class="mui-table-view" style="margin-top: 0px;" id="showList">
+			
+
+			</ul>
+		</div>	
+		<div style="position: fixed;width: 100%; bottom:0;z-index:3;">
+			<ul class="mui-table-view mui-grid-view">
+			  <li class="mui-table-view-cell  mui-col-xs-4">
+					<a href="../../../to/findAward"><span class="mui-icon mui-icon-search" style="font-size: 30px;"></span><br>
+						<div class="mui-active" style="font-size:14px;line-height: 16px; ">查 询</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell  mui-col-xs-4">
+					<a href="../../../to/awardInfo"><span class="mui-icon mui-icon-info" style="font-size: 30px;color: blue;"></span>
+						<div style="font-size:14px;line-height: 16px;color: blue;">兑奖信息</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell  mui-col-xs-4">
+					<a href="../../../to/activity">
+						<span class="mui-icon mui-icon-paperclip " style="font-size: 30px;"></span>
+						<div style="font-size:14px;line-height: 16px;">活动信息</div>
+					</a>
+				</li>
+			</ul>
+		</div>
+
+  <script src="../../page/find_award/index.b.js"></script></body>
+  <script src="../../../public/js/mui.min.js"></script>
+
+
+
+</html>

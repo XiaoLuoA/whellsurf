@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>创建活动</title>
+</head>
+<link href="../../../public/css/mui.min.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <h1 class="mui-title">创建活动</h1>
+  </header>
+  <div class="mui-content">
+    <br>
+    <form class="mui-input-group">
+      <div class="mui-input-row">
+        <label>活动名称</label>
+        <input type="text" placeholder="请输入项目名称" maxlength="15" id="activityTitle">
+      </div>
+      <div class="mui-input-row">
+        <label>活动简述</label>
+        <input type="text" class="mui-input-clear" placeholder="请输入项目内容" maxlength="20" id="activityDetail">
+      </div>
+      <div class="mui-button-row">
+
+      </div>
+    </form>
+    <br>
+    <div style="text-align: center;">
+      <button type="button" class="mui-btn mui-btn-primary mui-icon mui-icon-right" 
+        id="createButton" style="padding-left: 20px;padding-right: 20px;">立即创建</button>
+    </div>
+    <script src="../../../public/js/mui.min.js"></script>
+    <script type="text/javascript">
+      mui.init();
+    </script>
+<script src="../../page/create_activity/index.b.js"></script></body>
+
+</html>

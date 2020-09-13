@@ -1,10 +1,16 @@
 spring:
+  jpa:
+    show-sql: true
   # 数据库配置
   datasource:
     url: jdbc:mysql://47.94.167.203/whellsurf?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
+#    url: jdbc:mysql:///test?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=GMT%2B8
     username: root
     password: 19980715
+#    password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
+  server:
+    port: 8080
   devtools:
     restart:
       enabled: true

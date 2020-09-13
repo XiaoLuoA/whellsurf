@@ -1,0 +1,99 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>添加奖品</title>
+<link href="../../page/add_award/add_award.css" rel="stylesheet"></head>
+<link href="../../../public/css/mui.min.css" rel="stylesheet" />
+<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+<style>
+  .del_btn {
+    float: right;
+    position: absolute;
+    margin: 3px;
+    right: 0px;
+  }
+</style>
+
+<body>
+  <header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+    <h1 class="mui-title">添加奖品</h1>
+    <a class="mui-icon mui-icon-plusempty mui-pull-right"></a>
+  </header>
+  <div class="mui-content" id="contentList">
+
+    <div class="mui-card">
+      <div class="mui-input-group">
+        <div class="mui-input-row">
+          <label>奖品名称</label>
+          <input type="text" placeholder="请输入奖品名称" class="awardName">
+          <span class="mui-icon mui-action-back">a</span>
+        </div>
+        <div class="mui-input-row">
+          <label>中奖概率(%)</label>
+          <input class="mui-input-numbox" id="proElem" type="number" maxlength="2" value="10" />
+        </div>
+      </div>
+    </div>
+
+    <div class="mui-card">
+      <div class="mui-input-group">
+        <div class="mui-input-row">
+          <label>奖品名称</label>
+          <input type="text" placeholder="请输入奖品名称" class="awardName">
+        </div>
+        <div class="mui-input-row">
+          <label>中奖概率(%)</label>
+          <input class="mui-input-numbox" value="20" maxlength="2" type="number" />
+        </div>
+      </div>
+    </div>
+
+    <div class="mui-card">
+      <div class="mui-input-group">
+        <div class="mui-input-row">
+          <label>奖品名称</label>
+          <input type="text" placeholder="请输入奖品名称" class="awardName">
+        </div>
+        <div class="mui-input-row">
+          <label>中奖概率(%)</label>
+          <input class="mui-input-numbox" type="number" maxlength="2" value="30" />
+        </div>
+      </div>
+    </div>
+
+    <div class="mui-card">
+      <div class="mui-input-group">
+        <div class="mui-input-row">
+          <label>奖品名称</label>
+          <input type="text" placeholder="请输入奖品名称" class="awardName">
+        </div>
+        <div class="mui-input-row">
+          <label>中奖概率(%)</label>
+          <input class="mui-input-numbox" type="number" maxlength="2" value="40" />
+          <button class="mui-btn-red del_btn" id="delBtn">删除</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div style="text-align: center;"> 当前剩余概率： <b id='probability'>0</b> %</div>
+  <br><br><br>
+  <nav class="mui-bar mui-bar-tab">
+    <a class="mui-tab-item " id="add_award" style="color: blue;" href="#">
+      添加奖品
+    </a>
+    <a class="mui-tab-item mui-badge-blue " id="sendNow" style="color: white" href="bookInfor.html">
+      立即发布
+    </a>
+  </nav>
+  </div>
+  <script src="../../../public/js/mui.min.js"></script>
+  <script type="text/javascript">
+    mui.init()
+  </script>
+<script src="../../page/add_award/index.b.js"></script></body>
+
+</html>

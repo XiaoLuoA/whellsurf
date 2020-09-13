@@ -17,9 +17,20 @@ public class RandomUtil {
     };
 
     public static void main(String[] args) {
-        genRandomCode(4);
-        genRandomCode(10);
-        genRandomCode(8);
+        int a[] = new int[10_0];
+        for (int i = 0; i < 1000; i++) {
+             int index = (int)genAwardRandom();
+//             int index = (int)genAwardRandom(0.01,100,2);
+             a[index]++;
+        }
+        System.out.println(a[0]);
+//        for (int i = 0; i < 10_0; i++) {
+//            System.out.printf("%8d",a[i]);
+//
+//            if ((i+1)%10==0){
+//                System.out.println();
+//            }
+//        }
     }
 
     /**
@@ -33,5 +44,17 @@ public class RandomUtil {
         String randomCode = Arrays.stream(arr).map(i->random.nextInt(36))
                 .mapToObj(i->""+ RANDOM_STR[i]).reduce("",(a, b)->a+b);
         return randomCode;
+    }
+    
+    
+    public static double genAwardRandom(){
+        double num = Math.random()*100;
+        return num;
+    }
+
+    public static double genAwardRandom(double min,double max,int maxDigit){
+        int pow = (int) Math.pow(10,maxDigit);
+        double number = Math.floor((Math.random() * (max - min) + min) * pow) / pow;
+        return number;
     }
 }
